@@ -573,38 +573,16 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 </head>
 <body>
 
-  <div id="setup-screen" style="position:fixed;top:0;left:0;width:100%;height:100%;background:white;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center">
-    <div class="login-logo" style="font-size:24px;font-weight:700;margin-bottom:6px;font-family:Inter,sans-serif">Esoft <span style="color:#1D9E75">Buddy Cloud</span></div>
-    <p style="margin-top:10px; color:#666; font-family:Inter,sans-serif">Dán <b>Web App URL</b> từ Google Script vào đây:</p>
-    <input type="text" id="gas-url-input" placeholder="https://script.google.com/macros/s/.../exec" style="width:100%;max-width:500px;padding:12px;margin:15px 0;border:1px solid #ddd;border-radius:8px;font-family:inherit">
-    <button onclick="saveGasUrl()" style="width:200px;padding:12px;background:#1D9E75;color:#fff;border:none;border-radius:6px;font-family:Inter;font-weight:600;cursor:pointer">Kết nối Hệ thống</button>
-  </div>
-
-
 <script>
-    var GAS_URL = localStorage.getItem('ESOFT_BUDDY_GAS_URL');
+    var GAS_URL = 'https://script.google.com/macros/s/AKfycbzwubbOMGSoodD7jjSxz7gkv4DyCszWZONHDr3mCrialqS4askffjKCbUwuaoxAWOi6/exec';
 
-    function saveGasUrl() {
-        var url = document.getElementById('gas-url-input').value.trim();
-        if (url.startsWith('https://script.google.com')) {
-            localStorage.setItem('ESOFT_BUDDY_GAS_URL', url);
-            location.reload();
-        } else {
-            alert('URL không hợp lệ. Hãy kiểm tra lại link Web App của bạn!');
-        }
-    }
+    // Log connection status
+    console.log('Esoft Buddy Cloud - Connecting to GAS:', GAS_URL);
 
-    if (GAS_URL) {
-        document.getElementById('setup-screen').style.display = 'none';
-        
-        // Hide login error text initially
-        var style = document.createElement('style');
-        style.innerHTML = '.login-error.cloud-loading { color: #1D9E75; }';
-        document.head.appendChild(style);
-    } else {
-        document.getElementById('loginScreen').style.display = 'none';
-        document.getElementById('appLayout').style.display = 'none';
-    }
+    // Initial style setup
+    var loginInitStyle = document.createElement('style');
+    loginInitStyle.innerHTML = '.login-error.cloud-loading { color: #1D9E75; }';
+    document.head.appendChild(loginInitStyle);
 
     // CREATE PROXY
     window.google = window.google || {};
