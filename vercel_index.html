@@ -1,0 +1,1656 @@
+<!-- ĐÂY LÀ NỘI DUNG GỐC CỦA BẠN TRƯỚC KHI TÔI SỬA -->
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+/* =======================================================
+   ESOFT LEARNING BUDDY v2 — CSS
+   + Journal, Prompt Scaffolding, Buddy Matching, Enhanced Dashboard
+   ======================================================= */
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --green:#1D9E75;
+  --green-light:#E1F5EE;
+  --green-dark:#0F6E56;
+  --blue:#3B82F6;
+  --blue-light:#E6F1FB;
+  --purple:#7F77DD;
+  --purple-light:#EEEDFE;
+  --amber:#EF9F27;
+  --amber-light:#FAEEDA;
+  --red:#E24B4A;
+  --red-light:#FCEBEB;
+  --bg:#F7F8FA;
+  --bg-card:#FFFFFF;
+  --bg-secondary:#F1F3F5;
+  --text:#1A1A2E;
+  --text-secondary:#5A5F7A;
+  --text-muted:#9CA3AF;
+  --border:#E5E7EB;
+  --border-light:#F0F1F3;
+  --radius:10px;
+  --radius-sm:6px;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.04);
+  --shadow-md:0 4px 12px rgba(0,0,0,0.06);
+  --shadow-lg:0 8px 24px rgba(0,0,0,0.1);
+  --font:'Inter',system-ui,-apple-system,sans-serif;
+  --transition:all .2s ease;
+}
+
+html{font-size:14px}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh}
+
+/* --- LOGIN --- */
+.login-screen{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#E1F5EE 0%,#F7F8FA 50%,#EEEDFE 100%);
+}
+.login-card{
+  background:var(--bg-card);border-radius:16px;box-shadow:var(--shadow-lg);
+  padding:40px;width:380px;max-width:90vw;text-align:center;animation:fadeUp .4s ease;
+}
+.login-logo{font-size:24px;font-weight:700;margin-bottom:6px}
+.login-logo span{color:var(--green)}
+.login-subtitle{color:var(--text-muted);font-size:.88rem;margin-bottom:28px}
+.login-card .form-group{margin-bottom:16px;text-align:left}
+.login-card .form-label{display:block;font-size:.78rem;font-weight:600;color:var(--text-secondary);margin-bottom:5px}
+.login-card .form-input{
+  width:100%;padding:10px 14px;border:1px solid var(--border);
+  border-radius:var(--radius-sm);font-family:var(--font);font-size:.88rem;outline:none;transition:var(--transition);
+}
+.login-card .form-input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(29,158,117,.12)}
+.login-btn{
+  width:100%;padding:12px;background:var(--green);color:#fff;border:none;border-radius:var(--radius-sm);
+  font-family:var(--font);font-size:.9rem;font-weight:600;cursor:pointer;transition:var(--transition);margin-top:8px;
+}
+.login-btn:hover{background:var(--green-dark);transform:translateY(-1px)}
+.login-error{color:var(--red);font-size:.8rem;margin-top:10px;min-height:20px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* --- APP LAYOUT --- */
+.app-layout{display:flex;min-height:100vh}
+.hidden{display:none!important}
+
+/* --- SIDEBAR --- */
+.sidebar{
+  width:230px;background:var(--bg-card);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;
+}
+.sidebar-header{padding:16px 14px;border-bottom:1px solid var(--border)}
+.logo{font-size:16px;font-weight:700;color:var(--text)}
+.logo span{color:var(--green)}
+.user-info{margin-top:10px;display:flex;align-items:center;gap:8px}
+.user-info .avatar{flex-shrink:0}
+.user-info-text .user-name{font-size:.82rem;font-weight:600;color:var(--text)}
+.user-info-text .user-class{font-size:.72rem;color:var(--text-muted)}
+.sidebar-nav{flex:1;padding:10px 8px;overflow-y:auto}
+.nav-section{font-size:.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.6px;padding:12px 10px 4px;font-weight:600}
+.nav-item{
+  display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:var(--radius-sm);
+  cursor:pointer;font-size:.85rem;color:var(--text-secondary);transition:var(--transition);
+  text-decoration:none;font-weight:500;
+}
+.nav-item:hover{background:var(--bg-secondary);color:var(--text)}
+.nav-item.active{background:var(--green-light);color:var(--green-dark);font-weight:600}
+.nav-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.nav-badge{
+  margin-left:auto;font-size:.68rem;background:var(--red);color:#fff;
+  border-radius:10px;padding:1px 7px;font-weight:600;min-width:18px;text-align:center;
+}
+.sidebar-footer{
+  padding:12px 14px;border-top:1px solid var(--border);
+  display:flex;align-items:center;gap:8px;cursor:pointer;transition:var(--transition);
+}
+.sidebar-footer:hover{background:var(--bg-secondary)}
+.sidebar-footer span{font-size:.8rem;color:var(--text-muted)}
+
+/* --- MAIN CONTENT --- */
+.main-content{margin-left:230px;flex:1;display:flex;flex-direction:column;min-height:100vh}
+
+/* --- TOPBAR --- */
+.topbar{
+  padding:14px 24px;border-bottom:1px solid var(--border);display:flex;
+  align-items:center;justify-content:space-between;flex-shrink:0;
+  background:var(--bg-card);position:sticky;top:0;z-index:50;
+}
+.topbar h2{font-size:1rem;font-weight:600;color:var(--text)}
+.topbar-meta{font-size:.78rem;color:var(--text-muted);margin-top:2px}
+
+/* --- CONTENT AREA --- */
+.content-area{flex:1;padding:20px 24px;overflow-y:auto}
+
+/* --- AVATAR --- */
+.avatar{
+  width:32px;height:32px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-size:.72rem;font-weight:600;flex-shrink:0;
+}
+.avatar-sm{width:24px;height:24px;font-size:.6rem}
+.avatar-lg{width:42px;height:42px;font-size:.88rem}
+
+/* --- TAB CONTENT --- */
+.tab-content{display:none;animation:fadeUp .25s ease}
+.tab-content.active{display:block}
+
+/* --- CARDS --- */
+.card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--radius);margin-bottom:14px;transition:var(--transition);
+}
+.card:hover{box-shadow:var(--shadow-sm)}
+.card-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 16px;border-bottom:1px solid var(--border-light);gap:10px;flex-wrap:wrap;
+}
+.card-body{padding:14px 16px}
+
+/* --- STATS GRID --- */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:20px}
+.stat-card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:16px;transition:var(--transition);position:relative;overflow:hidden;
+}
+.stat-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm)}
+.stat-card .stat-icon{position:absolute;top:10px;right:12px;font-size:1.3rem;opacity:.5}
+.stat-label{font-size:.72rem;color:var(--text-muted);font-weight:500;margin-bottom:4px}
+.stat-value{font-size:1.6rem;font-weight:700;color:var(--text);line-height:1.1}
+.stat-sub{font-size:.72rem;color:var(--text-muted);margin-top:3px}
+.stat-trend{font-size:.68rem;margin-top:4px;display:inline-flex;align-items:center;gap:3px;padding:2px 6px;border-radius:10px}
+.stat-trend.up{background:#DCFCE7;color:#166534}
+.stat-trend.down{background:#FEE2E2;color:#991B1B}
+.stat-trend.neutral{background:var(--bg-secondary);color:var(--text-muted)}
+
+/* --- SESSION ROADMAP --- */
+.roadmap{display:flex;gap:0;overflow-x:auto;padding:4px 0 12px;margin-bottom:16px}
+.roadmap-step{
+  display:flex;flex-direction:column;align-items:center;min-width:72px;
+  position:relative;cursor:pointer;transition:var(--transition);
+}
+.roadmap-step::after{content:'';position:absolute;top:16px;left:50%;width:100%;height:2px;background:var(--border);z-index:0}
+.roadmap-step:last-child::after{display:none}
+.step-circle{
+  width:32px;height:32px;border-radius:50%;border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;font-size:.72rem;
+  font-weight:600;background:var(--bg-card);z-index:1;color:var(--text-muted);transition:var(--transition);
+}
+.roadmap-step.completed .step-circle{background:var(--green);color:#fff;border-color:var(--green)}
+.roadmap-step.current .step-circle{background:#fff;color:var(--green);border-color:var(--green);box-shadow:0 0 0 3px rgba(29,158,117,.2)}
+.step-label{font-size:.62rem;color:var(--text-muted);margin-top:6px;text-align:center;max-width:70px;line-height:1.3}
+.roadmap-step.completed .step-label,.roadmap-step.current .step-label{color:var(--text)}
+
+/* --- POST / DISCUSSION --- */
+.post-composer{background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:16px}
+.composer-row{display:flex;gap:10px;align-items:center}
+.composer-input{
+  flex:1;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:9px 14px;font-size:.85rem;color:var(--text-muted);cursor:pointer;transition:var(--transition);
+}
+.composer-input:hover{border-color:var(--green)}
+.post-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:12px}
+.post-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.post-author{font-size:.85rem;font-weight:600;color:var(--text)}
+.post-time{font-size:.72rem;color:var(--text-muted)}
+.post-type-badge{font-size:.68rem;padding:3px 10px;border-radius:12px;margin-left:auto;font-weight:600}
+.badge-review{background:var(--green-light);color:var(--green-dark)}
+.badge-question{background:var(--blue-light);color:#185FA5}
+.badge-share{background:var(--purple-light);color:#3C3489}
+.post-body{font-size:.85rem;color:var(--text);line-height:1.65;margin-bottom:10px}
+.post-attachment{
+  background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:8px 12px;font-size:.78rem;color:var(--text-secondary);margin-bottom:10px;
+  display:flex;align-items:center;gap:8px;
+}
+.post-actions{display:flex;gap:6px;flex-wrap:wrap}
+
+/* --- FEED TOGGLE --- */
+.feed-toggle{display:flex;gap:0;margin-bottom:14px;background:var(--bg-secondary);border-radius:var(--radius);padding:3px;border:1px solid var(--border)}
+.feed-toggle-btn{
+  flex:1;padding:8px 14px;border:none;background:transparent;border-radius:var(--radius-sm);
+  font-family:var(--font);font-size:.82rem;font-weight:500;color:var(--text-secondary);
+  cursor:pointer;transition:var(--transition);
+}
+.feed-toggle-btn:hover{color:var(--text)}
+.feed-toggle-btn.active{background:var(--bg-card);color:var(--green-dark);font-weight:600;box-shadow:var(--shadow-sm)}
+
+/* --- BUTTONS --- */
+.btn{
+  display:inline-flex;align-items:center;gap:5px;padding:7px 14px;
+  border:1px solid var(--border);border-radius:var(--radius-sm);background:transparent;
+  cursor:pointer;font-family:var(--font);font-size:.78rem;color:var(--text-secondary);
+  transition:var(--transition);font-weight:500;
+}
+.btn:hover{background:var(--bg-secondary);color:var(--text)}
+.btn-primary{background:var(--green);color:#fff;border-color:var(--green)}
+.btn-primary:hover{background:var(--green-dark);border-color:var(--green-dark);color:#fff}
+.btn-sm{padding:5px 10px;font-size:.72rem}
+.btn-icon{padding:6px;border-radius:50%;border:none;background:transparent;cursor:pointer;transition:var(--transition)}
+.btn-icon:hover{background:var(--bg-secondary)}
+
+/* --- COMMENTS --- */
+.comments-section{border-top:1px solid var(--border-light);margin-top:10px;padding-top:10px}
+.comment{display:flex;gap:8px;margin-bottom:8px}
+.comment-body{background:var(--bg-secondary);border-radius:var(--radius-sm);padding:8px 12px;flex:1}
+.comment-author{font-size:.72rem;font-weight:600;color:var(--text)}
+.comment-text{font-size:.78rem;color:var(--text-secondary);margin-top:2px;line-height:1.5}
+.comment-compose{display:flex;gap:8px;margin-top:8px}
+.comment-compose input{
+  flex:1;padding:7px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);
+  font-size:.78rem;font-family:var(--font);outline:none;
+}
+.comment-compose input:focus{border-color:var(--green)}
+
+/* --- REVIEW & PROMPT SCAFFOLDING (v2) --- */
+.review-card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:14px;margin-bottom:12px;
+}
+.review-file{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:10px;flex-wrap:wrap}
+.file-info{display:flex;align-items:center;gap:10px}
+.file-icon{
+  width:36px;height:36px;background:var(--green-light);border-radius:var(--radius-sm);
+  display:flex;align-items:center;justify-content:center;font-size:16px;
+}
+.file-name{font-size:.85rem;font-weight:600;color:var(--text)}
+.file-meta{font-size:.72rem;color:var(--text-muted)}
+
+.rubric{margin-bottom:12px}
+.rubric-title{font-size:.78rem;font-weight:600;color:var(--text-secondary);margin-bottom:8px}
+.rubric-row{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.rubric-label{font-size:.82rem;color:var(--text);width:130px;flex-shrink:0}
+.stars{display:flex;gap:4px}
+.star{
+  width:20px;height:20px;border-radius:4px;border:1px solid var(--border);
+  background:var(--bg-secondary);cursor:pointer;transition:var(--transition);
+  display:flex;align-items:center;justify-content:center;font-size:.6rem;color:transparent;
+}
+.star.filled{background:var(--amber);border-color:var(--amber);color:#fff}
+.star:hover{transform:scale(1.15)}
+
+/* --- DATA TABLE (LEADERBOARD) --- */
+.data-table{width:100%;border-collapse:collapse;font-size:.82rem;background:var(--bg-card);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border)}
+.data-table thead{background:var(--bg-secondary)}
+.data-table th{padding:10px 12px;font-weight:600;color:var(--text-muted);text-align:left;font-size:.72rem;text-transform:uppercase;letter-spacing:.3px;border-bottom:2px solid var(--border)}
+.data-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.data-table tbody tr:last-child td{border-bottom:none}
+.data-table tbody tr:hover{background:var(--bg-secondary)}
+.you-badge{display:inline-block;background:var(--green);color:#fff;font-size:.6rem;padding:1px 6px;border-radius:8px;margin-left:6px;font-weight:600;vertical-align:middle}
+
+/* v2: Prompt Scaffolding */
+.scaffold-prompts{
+  background:linear-gradient(135deg,#F0F7FF,#F0FFF5);border:1px solid #D1E9FF;
+  border-radius:var(--radius);padding:14px;margin-bottom:12px;
+}
+.scaffold-title{font-size:.78rem;font-weight:600;color:var(--blue);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.scaffold-prompt{
+  display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;
+  font-size:.8rem;color:var(--text-secondary);line-height:1.5;cursor:pointer;
+  padding:6px 10px;border-radius:var(--radius-sm);transition:var(--transition);
+}
+.scaffold-prompt:hover{background:rgba(29,158,117,.06)}
+.scaffold-prompt .prompt-num{
+  width:20px;height:20px;border-radius:50%;background:var(--blue-light);color:var(--blue);
+  display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:700;flex-shrink:0;
+}
+.scaffold-prompt.used .prompt-num{background:var(--green-light);color:var(--green)}
+
+.review-comment{
+  width:100%;padding:10px 12px;font-size:.82rem;border:1px solid var(--border);
+  border-radius:var(--radius-sm);background:var(--bg-secondary);color:var(--text);
+  resize:none;height:80px;font-family:var(--font);outline:none;line-height:1.5;
+}
+.review-comment:focus{border-color:var(--green);background:#fff}
+
+/* --- STATUS PILLS --- */
+.pill{font-size:.68rem;padding:3px 10px;border-radius:12px;font-weight:600;display:inline-block}
+.pill-pending{background:var(--amber-light);color:#633806}
+.pill-done{background:var(--green-light);color:var(--green-dark)}
+.pill-late{background:var(--red-light);color:#501313}
+.pill-new{background:var(--blue-light);color:#185FA5}
+
+/* --- SKILL LEVEL BADGES (v2) --- */
+.level-badge{
+  font-size:.68rem;padding:3px 10px;border-radius:12px;font-weight:600;
+  display:inline-flex;align-items:center;gap:4px;
+}
+.level-leading{background:var(--green-light);color:var(--green-dark)}
+.level-on-track{background:var(--amber-light);color:#633806}
+.level-needs-help{background:var(--red-light);color:#501313}
+.level-inactive{background:var(--bg-secondary);color:var(--text-muted)}
+
+/* --- MEMBER CARD --- */
+.member-card{
+  display:flex;align-items:center;gap:12px;padding:12px 14px;
+  border:1px solid var(--border);border-radius:var(--radius);
+  margin-bottom:8px;background:var(--bg-card);transition:var(--transition);
+}
+.member-card:hover{box-shadow:var(--shadow-sm)}
+.member-info{flex:1}
+.member-name{font-size:.85rem;font-weight:600;color:var(--text)}
+.member-role{font-size:.72rem;color:var(--text-muted)}
+.member-stats{display:flex;gap:16px}
+.m-stat{text-align:center}
+.m-stat-val{font-size:.95rem;font-weight:700;color:var(--text)}
+.m-stat-lbl{font-size:.62rem;color:var(--text-muted)}
+.you-badge{
+  font-size:.62rem;background:var(--green-light);color:var(--green-dark);
+  padding:2px 7px;border-radius:10px;margin-left:4px;font-weight:600;
+}
+
+/* --- PROGRESS BAR --- */
+.progress-bar{height:6px;background:var(--bg-secondary);border-radius:4px;overflow:hidden;width:100px}
+.progress-fill{height:100%;border-radius:4px;background:var(--green);transition:width .4s ease}
+.progress-bar-lg{height:10px;width:200px}
+
+/* --- TABLE --- */
+.data-table{width:100%;border-collapse:collapse;font-size:.82rem}
+.data-table th{
+  text-align:left;font-size:.68rem;color:var(--text-muted);font-weight:600;
+  padding:10px 12px;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.4px;
+}
+.data-table td{padding:10px 12px;border-bottom:1px solid var(--border-light);color:var(--text);vertical-align:middle}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover{background:rgba(29,158,117,.02)}
+.data-table tr.clickable-row{cursor:pointer}
+.data-table tr.clickable-row:hover{background:rgba(29,158,117,.05)}
+
+.member-chips{display:flex;gap:4px;flex-wrap:wrap}
+.member-chip{
+  font-size:.68rem;padding:3px 8px;border-radius:10px;
+  background:var(--bg-secondary);color:var(--text-secondary);border:1px solid var(--border);
+}
+
+/* --- ALERTS --- */
+.alert-row{
+  display:flex;align-items:center;gap:12px;padding:12px 14px;
+  background:var(--amber-light);border-radius:var(--radius-sm);margin-bottom:8px;
+}
+.alert-text{font-size:.82rem;color:#633806;flex:1}
+.alert-action{font-size:.75rem;color:#854F0B;font-weight:600;cursor:pointer;white-space:nowrap}
+.alert-blue{background:var(--blue-light)}
+.alert-blue .alert-text{color:#185FA5}
+.alert-blue .alert-action{color:#185FA5}
+.alert-red{background:var(--red-light)}
+.alert-red .alert-text{color:#501313}
+
+/* --- BUDDY MATCH CARD (v2) --- */
+.buddy-match{
+  display:flex;align-items:center;gap:12px;padding:14px;
+  background:linear-gradient(135deg,#F0FFF5,#F0F7FF);
+  border:1px solid #C6F6D5;border-radius:var(--radius);margin-bottom:10px;
+}
+.buddy-arrow{font-size:1.2rem;color:var(--green);flex-shrink:0;margin:0 4px}
+.buddy-person{display:flex;align-items:center;gap:8px;flex:1}
+.buddy-person-info .bp-name{font-size:.82rem;font-weight:600;color:var(--text)}
+.buddy-person-info .bp-detail{font-size:.68rem;color:var(--text-muted)}
+
+/* --- JOURNAL (v2) --- */
+.journal-compose{
+  background:linear-gradient(135deg,#FFFDF0,#FFF5F0);
+  border:1px solid #FDE68A;border-radius:var(--radius);padding:16px;margin-bottom:16px;
+}
+.journal-compose-title{font-size:.88rem;font-weight:600;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.journal-prompt{margin-bottom:12px}
+.journal-prompt label{
+  display:block;font-size:.78rem;font-weight:600;color:var(--text-secondary);
+  margin-bottom:4px;display:flex;align-items:center;gap:6px;
+}
+.journal-prompt label .j-icon{font-size:.88rem}
+.journal-prompt textarea{
+  width:100%;padding:8px 12px;border:1px solid var(--border);
+  border-radius:var(--radius-sm);font-family:var(--font);font-size:.82rem;
+  resize:none;height:56px;outline:none;color:var(--text);line-height:1.5;
+}
+.journal-prompt textarea:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(239,159,39,.1)}
+.journal-prompt textarea::placeholder{color:var(--text-muted);font-style:italic}
+
+.journal-entry{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:14px;margin-bottom:10px;border-left:3px solid var(--amber);
+}
+.journal-entry-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.journal-session{font-size:.82rem;font-weight:600;color:var(--text)}
+.journal-date{font-size:.72rem;color:var(--text-muted)}
+.journal-section{margin-bottom:8px}
+.journal-section-label{font-size:.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.3px;margin-bottom:3px}
+.journal-section-text{font-size:.82rem;color:var(--text);line-height:1.6}
+.journal-section-text.confused{color:var(--red)}
+.journal-section-text.next{color:var(--green-dark);font-style:italic}
+
+/* --- SECTION TITLE --- */
+.section-title{font-size:.88rem;font-weight:600;color:var(--text);margin:16px 0 10px;display:flex;align-items:center;gap:8px}
+
+/* --- SUBMISSION FORM --- */
+.submission-form{
+  background:var(--bg-secondary);border:1px solid var(--border);
+  border-radius:var(--radius);padding:16px;margin-top:12px;
+}
+.submission-form label{display:block;font-size:.78rem;font-weight:600;color:var(--text-secondary);margin-bottom:6px}
+.submission-form input[type="text"]{
+  width:100%;padding:10px 14px;border:1px solid var(--border);
+  border-radius:var(--radius-sm);font-family:var(--font);font-size:.85rem;outline:none;
+}
+.submission-form input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(29,158,117,.1)}
+
+/* --- SKILL BARS --- */
+.skill-bar-container{margin-bottom:10px}
+.skill-bar-label{display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:4px}
+.skill-bar-label span:first-child{color:var(--text);font-weight:500}
+.skill-bar-label span:last-child{color:var(--text-muted)}
+.skill-bar{height:8px;background:var(--bg-secondary);border-radius:4px;overflow:hidden}
+.skill-bar-fill{height:100%;border-radius:4px;transition:width .5s ease}
+
+/* --- MINI CHART BAR (v2) --- */
+.mini-chart{display:flex;align-items:flex-end;gap:3px;height:40px}
+.mini-chart-lg{height:80px;gap:6px;padding-bottom:18px}
+.mini-chart-lg .mini-bar{width:24px;min-width:18px;border-radius:4px 4px 0 0}
+.mini-chart-lg .mini-bar-label{font-size:.65rem;bottom:-16px}
+.mini-bar{width:16px;border-radius:3px 3px 0 0;background:var(--border);transition:height .3s ease;position:relative}
+.mini-bar.has-data{background:var(--green)}
+.mini-bar.current-bar{background:var(--blue)}
+.mini-bar-label{position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);font-size:.55rem;color:var(--text-muted)}
+
+/* --- DASHBOARD 2-COLUMN LAYOUT --- */
+.dashboard-2col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+@media(max-width:768px){.dashboard-2col{grid-template-columns:1fr}}
+
+/* --- TEACHER STUDENT DETAIL CARD (v2) --- */
+.student-detail-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:16px}
+.student-detail-card{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:14px;transition:var(--transition);cursor:pointer;
+}
+.student-detail-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.sdc-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.sdc-name{font-size:.85rem;font-weight:600;color:var(--text)}
+.sdc-group{font-size:.68rem;color:var(--text-muted)}
+.sdc-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px}
+.sdc-stat{text-align:center}
+.sdc-stat-val{font-size:.95rem;font-weight:700;color:var(--text)}
+.sdc-stat-lbl{font-size:.6rem;color:var(--text-muted)}
+.sdc-skills{margin-top:8px}
+.sdc-weakness{
+  font-size:.72rem;color:var(--text-muted);margin-top:6px;
+  padding:4px 8px;background:var(--red-light);border-radius:var(--radius-sm);
+  display:inline-block;
+}
+
+/* --- MODAL --- */
+.modal-backdrop{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.35);z-index:200;display:none;
+}
+.modal-backdrop.show{display:block;animation:fadeIn .15s ease}
+.modal-container{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.96);
+  background:var(--bg-card);border-radius:12px;box-shadow:var(--shadow-lg);
+  z-index:201;width:520px;max-width:92vw;max-height:85vh;overflow-y:auto;display:none;
+}
+.modal-container.show{display:block;animation:modalIn .2s ease forwards}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes modalIn{from{transform:translate(-50%,-50%) scale(.96);opacity:0}to{transform:translate(-50%,-50%) scale(1);opacity:1}}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border)}
+.modal-header h3{font-size:.95rem;font-weight:600}
+.modal-close{
+  width:28px;height:28px;display:flex;align-items:center;justify-content:center;
+  border:none;background:var(--bg-secondary);border-radius:50%;cursor:pointer;
+  font-size:18px;color:var(--text-muted);transition:var(--transition);
+}
+.modal-close:hover{background:var(--red);color:#fff}
+.modal-body{padding:20px}
+.modal-footer{display:flex;justify-content:flex-end;gap:8px;padding:14px 20px;border-top:1px solid var(--border)}
+
+/* --- TOAST --- */
+.toast-container{position:fixed;top:16px;right:16px;z-index:9999;display:flex;flex-direction:column;gap:8px}
+.toast{
+  padding:12px 18px;border-radius:var(--radius-sm);color:#fff;font-size:.82rem;
+  font-weight:500;box-shadow:var(--shadow-md);max-width:360px;
+  display:flex;align-items:center;gap:8px;
+  animation:slideIn .25s ease,fadeOut .25s ease 3.5s forwards;
+}
+.toast-success{background:#059669}
+.toast-error{background:#dc2626}
+.toast-info{background:var(--blue)}
+@keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes fadeOut{to{transform:translateX(100%);opacity:0}}
+
+/* --- LOADING --- */
+.loading-overlay{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(247,248,250,.92);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;z-index:9999;
+}
+.loading-overlay.hidden{opacity:0;pointer-events:none;transition:opacity .3s}
+.spinner{
+  width:36px;height:36px;border:3px solid var(--border);
+  border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-overlay p{margin-top:12px;color:var(--text-muted);font-size:.85rem}
+
+/* --- RESPONSIVE --- */
+@media(max-width:768px){
+  .sidebar{width:56px}
+  .logo,.user-info-text,.nav-section,.sidebar-footer span,.nav-item span:not(.nav-dot):not(.nav-badge){display:none}
+  .nav-item{justify-content:center;padding:10px}
+  .main-content{margin-left:56px}
+  .content-area{padding:14px}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .roadmap{flex-wrap:wrap}
+  .student-detail-grid{grid-template-columns:1fr}
+}
+
+/* --- CLASS PICKER (Multi-class Teacher) --- */
+.class-picker-screen{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#E1F5EE 0%,#F7F8FA 50%,#EEEDFE 100%);
+}
+.class-picker-container{
+  background:var(--bg-card);border-radius:16px;box-shadow:var(--shadow-lg);
+  padding:36px;width:440px;max-width:92vw;animation:fadeUp .4s ease;
+}
+.class-picker-header{text-align:center;margin-bottom:24px}
+.class-picker-list{display:flex;flex-direction:column;gap:10px}
+.class-picker-card{
+  display:flex;align-items:center;gap:14px;padding:16px 18px;
+  border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;
+  transition:var(--transition);background:var(--bg-card);
+}
+.class-picker-card:hover{border-color:var(--green);box-shadow:var(--shadow-sm);transform:translateY(-2px)}
+.cpc-icon{font-size:1.6rem;width:46px;height:46px;display:flex;align-items:center;justify-content:center;background:var(--green-light);border-radius:var(--radius);flex-shrink:0}
+.cpc-info{flex:1}
+.cpc-name{font-size:.9rem;font-weight:600;color:var(--text)}
+.cpc-track{font-size:.75rem;color:var(--text-muted);margin-top:2px}
+.cpc-arrow{font-size:1.2rem;color:var(--green);font-weight:600}
+.class-picker-footer{
+  text-align:center;margin-top:20px;font-size:.82rem;color:var(--text-muted);
+  cursor:pointer;padding:8px;border-radius:var(--radius-sm);transition:var(--transition);
+}
+.class-picker-footer:hover{background:var(--bg-secondary);color:var(--text)}
+</style>
+</head>
+<body>
+
+  <div id="setup-screen" style="position:fixed;top:0;left:0;width:100%;height:100%;background:white;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center">
+    <div class="login-logo" style="font-size:24px;font-weight:700;margin-bottom:6px;font-family:Inter,sans-serif">Esoft <span style="color:#1D9E75">Buddy Cloud</span></div>
+    <p style="margin-top:10px; color:#666; font-family:Inter,sans-serif">Dán <b>Web App URL</b> từ Google Script vào đây:</p>
+    <input type="text" id="gas-url-input" placeholder="https://script.google.com/macros/s/.../exec" style="width:100%;max-width:500px;padding:12px;margin:15px 0;border:1px solid #ddd;border-radius:8px;font-family:inherit">
+    <button onclick="saveGasUrl()" style="width:200px;padding:12px;background:#1D9E75;color:#fff;border:none;border-radius:6px;font-family:Inter;font-weight:600;cursor:pointer">Kết nối Hệ thống</button>
+  </div>
+
+
+<script>
+    var GAS_URL = localStorage.getItem('ESOFT_BUDDY_GAS_URL');
+
+    function saveGasUrl() {
+        var url = document.getElementById('gas-url-input').value.trim();
+        if (url.startsWith('https://script.google.com')) {
+            localStorage.setItem('ESOFT_BUDDY_GAS_URL', url);
+            location.reload();
+        } else {
+            alert('URL không hợp lệ. Hãy kiểm tra lại link Web App của bạn!');
+        }
+    }
+
+    if (GAS_URL) {
+        document.getElementById('setup-screen').style.display = 'none';
+        
+        // Hide login error text initially
+        var style = document.createElement('style');
+        style.innerHTML = '.login-error.cloud-loading { color: #1D9E75; }';
+        document.head.appendChild(style);
+    } else {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('appLayout').style.display = 'none';
+    }
+
+    // CREATE PROXY
+    window.google = window.google || {};
+    google.script = google.script || {};
+    google.script.run = {
+        withSuccessHandler: function(cb) { this._success = cb; return this; },
+        withFailureHandler: function(cb) { this._failure = cb; return this; },
+        _call: async function(action, args) {
+            try {
+                const response = await fetch(GAS_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({ action: action, params: args }),
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+                });
+                const result = await response.json();
+                if (result.status === 'success') { if(this._success) this._success(result.data); }
+                else { if(this._failure) this._failure(new Error(result.message)); }
+            } catch (e) { if(this._failure) this._failure(e); }
+        }
+    };
+
+    ['loginUser', 'getStudentData', 'getTeacherData', 'submitAssignment', 'submitReview', 'postJournal', 'postDiscussion', 'addReplyToDiscussion', 'likeDiscussion', 'forceClearCache', 'getStudentProgress', 'submitTeacherReview']
+    .forEach(fn => {
+        google.script.run[fn] = function() {
+            google.script.run._call(fn, Array.from(arguments));
+        };
+    });
+</script>
+
+
+  <!-- ========== LOGIN SCREEN ========== -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-card">
+      <div class="login-logo">Esoft <span>Buddy</span></div>
+      <p class="login-subtitle">Hệ thống Learning Buddy — Đăng nhập để bắt đầu</p>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" id="loginEmail" placeholder="email@gmail.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Mật khẩu</label>
+        <input type="password" class="form-input" id="loginPass" placeholder="Mật khẩu do admin cấp">
+      </div>
+      <button class="login-btn" onclick="handleLogin()">Đăng nhập</button>
+      <p class="login-error" id="loginError"></p>
+    </div>
+  </div>
+
+  <!-- ========== LOADING ========== -->
+  <div class="loading-overlay hidden" id="loadingOverlay">
+    <div class="spinner"></div>
+    <p id="loadingText">Đang tải dữ liệu...</p>
+  </div>
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ========== CLASS PICKER (Multi-class Teacher) ========== -->
+  <div class="class-picker-screen hidden" id="classPickerScreen">
+    <div class="class-picker-container">
+      <div class="class-picker-header">
+        <div class="login-logo">Esoft <span>Buddy</span></div>
+        <p class="login-subtitle">Chọn lớp bạn muốn quản lý</p>
+      </div>
+      <div class="class-picker-list" id="classPickerList"></div>
+      <div class="class-picker-footer" onclick="handleLogout()">🚪 Đăng xuất</div>
+    </div>
+  </div>
+
+  <!-- ========== APP ========== -->
+  <div class="app-layout hidden" id="appLayout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">Esoft <span>Buddy</span></div>
+        <div class="user-info" id="sidebarUserInfo"></div>
+      </div>
+      <div class="sidebar-nav" id="sidebarNav"></div>
+      <div class="sidebar-footer" onclick="handleLogout()">
+        <span>🚪 Đăng xuất</span>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+      <div class="topbar" id="topbar"></div>
+      <div class="content-area">
+        <!-- Student tabs -->
+        <div class="tab-content" id="tab-dashboard"></div>
+        <div class="tab-content" id="tab-feed"></div>
+        <div class="tab-content" id="tab-review"></div>
+        <div class="tab-content" id="tab-members"></div>
+    <div class="tab-content" id="tab-leaderboard"></div>
+        <div class="tab-content" id="tab-progress"></div>
+        <div class="tab-content" id="tab-journal"></div>
+
+        <!-- Teacher tabs -->
+        <div class="tab-content" id="tab-t-dashboard"></div>
+        <div class="tab-content" id="tab-t-students"></div>
+        <div class="tab-content" id="tab-t-groups"></div>
+        <div class="tab-content" id="tab-t-alerts"></div>
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-backdrop" id="modalBackdrop" onclick="closeModal()"></div>
+  <div class="modal-container" id="modalContainer">
+    <div class="modal-header">
+      <h3 id="modalTitle">Modal</h3>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer" id="modalFooter"></div>
+  </div>
+
+  <script>
+/* ESOFT LEARNING BUDDY v2 — JavaScript Part 1: Core, Login, Student Dashboard, Feed, Review */
+
+var currentUser = null;
+var appData = {};
+var currentTab = '';
+var activeClassId = ''; // Lớp đang xem (dùng cho GV dạy nhiều lớp)
+
+// ==================== LOGIN ====================
+function handleLogin() {
+  var email = document.getElementById('loginEmail').value.trim();
+  var pass = document.getElementById('loginPass').value.trim();
+  var errorEl = document.getElementById('loginError');
+  errorEl.textContent = '';
+  if (!email || !pass) { errorEl.textContent = 'Vui lòng nhập email và mật khẩu.'; return; }
+  showLoading(true, 'Đang xác thực...');
+  google.script.run.withSuccessHandler(function(res) {
+    if (res.status === 'success') {
+      currentUser = res.user;
+      document.getElementById('loginScreen').classList.add('hidden');
+
+      // Có nhiều lớp → hiện màn hình chọn lớp (áp dụng cho cả GV và HV)
+      if (currentUser.classList && currentUser.classList.length > 1) {
+        showClassPicker(currentUser.classList);
+      } else {
+        // Chỉ có 1 lớp → vào thẳng
+        activeClassId = currentUser.classList ? currentUser.classList[0].Class_ID : currentUser.Class_ID;
+        document.getElementById('appLayout').classList.remove('hidden');
+        loadAppData();
+      }
+    } else { showLoading(false); errorEl.textContent = res.message; }
+  }).withFailureHandler(function(err) { showLoading(false); errorEl.textContent = 'Lỗi: ' + err.message; }).loginUser(email, pass);
+}
+
+function showClassPicker(classList) {
+  showLoading(false);
+  var picker = document.getElementById('classPickerScreen');
+  var subtitle = currentUser.Role === 'teacher' ? 'Chọn lớp bạn muốn quản lý' : 'Chọn lớp bạn muốn học';
+  picker.querySelector('.login-subtitle').textContent = subtitle;
+  
+  var html = '';
+  classList.forEach(function(c) {
+    var trackIcon = c.Track === 'Photo' ? '📷' : (c.Track === 'Video' ? '🎬' : (c.Track === '3D' ? '🏠' : (c.Track === '2D' ? '🖼️' : '📚')));
+    html += '<div class="class-picker-card" onclick="selectClass(\'' + c.Class_ID + '\')">'
+      + '<div class="cpc-icon">' + trackIcon + '</div>'
+      + '<div class="cpc-info"><div class="cpc-name">' + esc(c.Class_Name) + '</div>'
+      + '<div class="cpc-track">Track: ' + esc(c.Track) + '</div></div>'
+      + '<div class="cpc-arrow">→</div></div>';
+  });
+  document.getElementById('classPickerList').innerHTML = html;
+  picker.classList.remove('hidden');
+}
+
+function selectClass(classId) {
+  activeClassId = classId;
+  document.getElementById('classPickerScreen').classList.add('hidden');
+  document.getElementById('appLayout').classList.remove('hidden');
+  loadAppData();
+}
+
+function renderTopbar(title, sub) {
+  var html = '<div class="topbar-left"><h2>' + esc(title) + '</h2>'
+    + '<div class="topbar-meta">' + esc(sub) + '</div></div>'
+    + '<div class="topbar-right" style="display:flex;gap:12px;align-items:center">'
+    + '<button class="btn btn-sm" onclick="refreshData()" title="Đồng bộ dữ liệu từ Sheets">🔄 Sync</button>'
+    + '<div class="topbar-date">' + new Date().toLocaleDateString('vi-VN') + '</div></div>';
+  document.getElementById('topbar').innerHTML = html;
+}
+
+function refreshData() {
+  showLoading(true, 'Đang đồng bộ dữ liệu mới nhất...');
+  google.script.run.withSuccessHandler(function() {
+    loadAppData();
+    showToast('Đồng bộ thành công!', 'success');
+  }).withFailureHandler(function(err) {
+    showLoading(false);
+    showToast(err.message, 'error');
+  }).forceClearCache();
+}
+
+function switchClassFromSidebar() {
+  document.getElementById('appLayout').classList.add('hidden');
+  showClassPicker(currentUser.classList);
+}
+
+function handleLogout() {
+  currentUser = null; appData = {}; activeClassId = '';
+  document.getElementById('appLayout').classList.add('hidden');
+  document.getElementById('classPickerScreen').classList.add('hidden');
+  document.getElementById('loginScreen').classList.remove('hidden');
+  document.getElementById('loginPass').value = '';
+  document.getElementById('loginError').textContent = '';
+}
+
+function loadAppData() {
+  showLoading(true, 'Đang tải dữ liệu lớp học...');
+  var handler = function(res) {
+    showLoading(false);
+    if (res.status === 'success') { appData = res; currentUser.Role === 'teacher' ? buildTeacherUI() : buildStudentUI(); }
+    else { showToast(res.message, 'error'); }
+  };
+  var errHandler = function(err) { showLoading(false); showToast(err.message, 'error'); };
+  if (currentUser.Role === 'teacher') google.script.run.withSuccessHandler(handler).withFailureHandler(errHandler).getTeacherData(currentUser.User_ID, activeClassId);
+  else google.script.run.withSuccessHandler(handler).withFailureHandler(errHandler).getStudentData(currentUser.User_ID, activeClassId);
+}
+
+// ==================== STUDENT UI ====================
+function buildStudentUI() {
+  document.getElementById('sidebarUserInfo').innerHTML =
+    '<div class="avatar" style="background:'+esc(currentUser.Avatar_Color)+';color:#fff">'+getInitials(currentUser.Full_Name)+'</div>'
+    +'<div class="user-info-text"><div class="user-name">'+esc(currentUser.Full_Name)+'</div>'
+    +'<div class="user-class">'+(appData.myClass?esc(appData.myClass.Class_Name):'')+'</div></div>';
+
+  var groupName = appData.myGroup ? esc(appData.myGroup.Group_Name) : 'Nhóm';
+  var pending = countPendingReviews();
+  var nav = '<div class="nav-section">Lộ trình học</div>'
+    +'<div class="nav-item active" onclick="switchTab(\'dashboard\',this)"><div class="nav-dot" style="background:#1D9E75"></div><span>Tổng quan</span></div>'
+    +'<div class="nav-section">'+esc(groupName)+'</div>'
+    +'<div class="nav-item" onclick="switchTab(\'feed\',this)"><div class="nav-dot" style="background:#1D9E75"></div><span>Thảo luận</span>'+(appData.discussions.length>0?'<span class="nav-badge">'+appData.discussions.length+'</span>':'')+'</div>'
+    +'<div class="nav-item" onclick="switchTab(\'review\',this)"><div class="nav-dot" style="background:#EF9F27"></div><span>Peer Review</span>'+(pending>0?'<span class="nav-badge">'+pending+'</span>':'')+'</div>'
+    +'<div class="nav-item" onclick="switchTab(\'members\',this)"><div class="nav-dot" style="background:#7F77DD"></div><span>Nhóm của tôi</span></div><div class="nav-item" onclick="switchTab(\'leaderboard\',this)"><div class="nav-dot" style="background:#FBBF24"></div><span>Bảng xếp hạng</span></div>'
+    +'<div class="nav-section">Cá nhân</div>'
+    +'<div class="nav-item" onclick="switchTab(\'journal\',this)"><div class="nav-dot" style="background:#EF9F27"></div><span>Nhật ký học tập</span></div>'
+    +'<div class="nav-item" onclick="switchTab(\'progress\',this)"><div class="nav-dot" style="background:#3B82F6"></div><span>Tiến độ</span></div>';
+
+  if (currentUser.classList && currentUser.classList.length > 1) {
+    nav += '<div class="nav-section">Lớp học</div>'
+      + '<div class="nav-item" onclick="switchClassFromSidebar()" style="color:var(--green);font-weight:600"><div class="nav-dot" style="background:var(--green)"></div><span>🔄 Đổi lớp</span></div>';
+  }
+  document.getElementById('sidebarNav').innerHTML = nav;
+
+  renderStudentDashboard(); renderFeed(); renderReviewTab(); renderMembersTab(); renderLeaderboardTab(); renderProgressTab(); renderJournalTab();
+  switchTab('dashboard', document.querySelector('.nav-item'));
+}
+
+function countPendingReviews() {
+  var ids = appData.reviewsGiven.map(function(r){return r.Sub_ID;});
+  return appData.groupSubs.filter(function(s){return ids.indexOf(s.Sub_ID)===-1;}).length;
+}
+
+// ==================== STUDENT DASHBOARD (ENHANCED v2) ====================
+function renderStudentDashboard() {
+  var cls = appData.myClass;
+  var totalSess = cls ? Number(cls.Total_Sessions) : 10;
+  var submittedSessions = {};
+  appData.mySubs.forEach(function(s){submittedSessions[String(s.Session_No)]=true;});
+  var submittedCount = Object.keys(submittedSessions).length;
+  var currentSession = 1;
+  for(var i=1;i<=totalSess;i++){if(!submittedSessions[String(i)]){currentSession=i;break;}if(i===totalSess)currentSession=totalSess;}
+
+  document.getElementById('topbar').innerHTML = '<div><h2>'+(cls?esc(cls.Class_Name):'Lớp học')+'</h2>'
+    +'<div class="topbar-meta">Lộ trình '+totalSess+' buổi · Track: '+(cls?esc(cls.Track):'Photo')+'</div></div>';
+
+  // Stats with icons
+  var avgScore = 0;
+  if(appData.reviewsReceived.length>0){
+    var t=0;appData.reviewsReceived.forEach(function(r){t+=(Number(r.Rating_Skill1)+Number(r.Rating_Skill2)+Number(r.Rating_Skill3))/3;});
+    avgScore=Math.round((t/appData.reviewsReceived.length)*10)/10;
+  }
+  var pctComplete = Math.round((submittedCount/totalSess)*100);
+
+  var statsHtml='<div class="stats-grid">'
+    +'<div class="stat-card"><div class="stat-icon">📝</div><div class="stat-label">Bài đã nộp</div><div class="stat-value">'+submittedCount+'/'+totalSess+'</div><div class="stat-sub">'+pctComplete+'% hoàn thành</div></div>'
+    +'<div class="stat-card"><div class="stat-icon">⭐</div><div class="stat-label">Điểm TB Peer Review</div><div class="stat-value">'+avgScore+'<span style="font-size:.7rem;color:var(--text-muted)">/5</span></div></div>'
+    +'<div class="stat-card"><div class="stat-icon">📤</div><div class="stat-label">Review đã cho</div><div class="stat-value">'+appData.reviewsGiven.length+'</div></div>'
+    +'<div class="stat-card"><div class="stat-icon">📥</div><div class="stat-label">Review nhận được</div><div class="stat-value">'+appData.reviewsReceived.length+'</div></div>'
+    +'</div>';
+
+  // Skill summary + Weekly trend: 2-column layout
+  var sk = appData.skillScores||{skill1:0,skill2:0,skill3:0};
+  var twoColHtml='<div class="dashboard-2col">';
+
+  // Left: Skill bars
+  twoColHtml+='<div class="card"><div class="card-header"><span style="font-weight:600">🎯 Phân tích kỹ năng</span></div><div class="card-body">'
+    +buildSkillBar(cls?cls.Skill1_Label:'Skill 1',sk.skill1,5,'var(--green)')
+    +buildSkillBar(cls?cls.Skill2_Label:'Skill 2',sk.skill2,5,'var(--blue)')
+    +buildSkillBar(cls?cls.Skill3_Label:'Skill 3',sk.skill3,5,'var(--purple)')
+    +'</div></div>';
+
+  // Right: Trend chart (taller bars)
+  twoColHtml+='<div class="card"><div class="card-header"><span style="font-weight:600">📊 Xu hướng điểm theo buổi</span></div><div class="card-body"><div class="mini-chart mini-chart-lg">';
+  var wt=appData.weeklyTrend||[];
+  for(var w=0;w<wt.length;w++){
+    var h=wt[w].avgScore>0?Math.round((wt[w].avgScore/5)*80):6;
+    var barClass=wt[w].submitted?(w+1===currentSession?'current-bar':'has-data'):'';
+    twoColHtml+='<div class="mini-bar '+barClass+'" style="height:'+h+'px" title="Buổi '+(w+1)+': '+wt[w].avgScore+'/5"><div class="mini-bar-label">'+(w+1)+'</div></div>';
+  }
+  twoColHtml+='</div><p style="font-size:.68rem;color:var(--text-muted);margin-top:18px">Xanh = đã nộp | Xám = chưa nộp | Xanh dương = buổi hiện tại</p></div></div>';
+  twoColHtml+='</div>';
+
+  // Roadmap
+  var roadmapHtml='<div class="section-title">🗺️ Lộ trình học tập</div><div class="roadmap">';
+  for(var j=1;j<=totalSess;j++){
+    var sc=submittedSessions[String(j)]?'completed':(j===currentSession?'current':'');
+    var ci=appData.curriculum.filter(function(c){return Number(c.Session_No)===j;});
+    var lb=ci.length>0?ci[0].Task:'Buổi '+j;if(lb.length>25)lb=lb.substring(0,25)+'…';
+    roadmapHtml+='<div class="roadmap-step '+sc+'" onclick="showSessionDetail('+j+')"><div class="step-circle">'+j+'</div><div class="step-label">'+esc(lb)+'</div></div>';
+  }
+  roadmapHtml+='</div>';
+
+  // Current session
+  var currItems=appData.curriculum.filter(function(c){return Number(c.Session_No)===currentSession;});
+  var detailHtml='';
+  if(currItems.length>0){
+    var ci=currItems[0];
+    detailHtml='<div class="section-title">📖 Buổi hiện tại</div><div class="card"><div class="card-header"><span style="font-weight:600">Buổi '+currentSession+': '+esc(ci.Task)+'</span>'
+      +'<span class="pill '+(submittedSessions[String(currentSession)]?'pill-done':'pill-pending')+'">'+(submittedSessions[String(currentSession)]?'Đã nộp':'Chưa nộp')+'</span></div>'
+      +'<div class="card-body"><p style="font-size:.82rem;color:var(--text-secondary);margin-bottom:8px"><strong>Nội dung:</strong> '+esc(ci.Subtask)+'</p>'
+      +'<p style="font-size:.82rem;color:var(--text-secondary);margin-bottom:8px"><strong>Mục tiêu:</strong> '+esc(ci.Outcomes)+'</p>'
+      +'<p style="font-size:.82rem;color:var(--text-secondary);margin-bottom:8px"><strong>Thời lượng:</strong> '+ci.Duration_Hours+' giờ · <strong>Hình thức:</strong> '+esc(ci.Format)+'</p>';
+    if(ci.Link_Material) detailHtml+='<p style="margin-bottom:6px"><a href="'+esc(ci.Link_Material)+'" target="_blank" class="btn btn-sm" style="text-decoration:none">📚 Xem tài liệu</a></p>';
+    if(ci.Link_Exercise) detailHtml+='<p style="margin-bottom:6px"><a href="'+esc(ci.Link_Exercise)+'" target="_blank" class="btn btn-sm" style="text-decoration:none">📝 Xem bài tập</a></p>';
+    if(!submittedSessions[String(currentSession)]){
+      detailHtml+='<div class="submission-form"><label>Nộp bài — Paste link bài làm:</label>'
+        +'<div style="display:flex;gap:8px;margin-top:4px"><input type="text" id="subLink-'+currentSession+'" placeholder="https://www.dropbox.com/...">'
+        +'<button class="btn btn-primary" onclick="submitAssignment('+currentSession+')">Nộp bài</button></div></div>';
+    }
+    detailHtml+='</div></div>';
+  }
+
+  // Weak skill alert
+  var alertHtml='';
+  if(appData.reviewsReceived.length>=2){
+    var minSkill=Math.min(sk.skill1,sk.skill2,sk.skill3);
+    var labels = [cls.Skill1_Label, cls.Skill2_Label, cls.Skill3_Label];
+    var weakName = minSkill === sk.skill1 ? labels[0] : (minSkill === sk.skill2 ? labels[1] : labels[2]);
+    if(minSkill>0&&minSkill<3.5){
+      alertHtml='<div class="alert-row alert-blue" style="margin-bottom:16px"><div class="alert-text">💡 <strong>Gợi ý cải thiện:</strong> Kỹ năng <strong>'+weakName+'</strong> ('+minSkill+'/5) đang thấp nhất. Hãy chú ý thêm ở buổi tiếp theo!</div></div>';
+    }
+  }
+
+  document.getElementById('tab-dashboard').innerHTML = statsHtml+alertHtml+twoColHtml+roadmapHtml+detailHtml;
+}
+
+function showSessionDetail(sessionNo){
+  var ci=appData.curriculum.filter(function(c){return Number(c.Session_No)===sessionNo;});
+  if(ci.length===0)return; ci=ci[0];
+  var submittedSessions={};appData.mySubs.forEach(function(s){submittedSessions[String(s.Session_No)]=true;});
+  var done=!!submittedSessions[String(sessionNo)];
+  var body='<p style="font-size:.82rem;color:var(--text-secondary);margin-bottom:8px"><strong>Nội dung:</strong> '+esc(ci.Subtask)+'</p>'
+    +'<p style="font-size:.82rem;color:var(--text-secondary);margin-bottom:10px"><strong>Mục tiêu:</strong> '+esc(ci.Outcomes)+'</p>'
+    +'<p style="font-size:.82rem;color:var(--text-secondary);margin-bottom:10px"><strong>Thời lượng:</strong> '+ci.Duration_Hours+' giờ</p>';
+  if(ci.Link_Material)body+='<p><a href="'+esc(ci.Link_Material)+'" target="_blank">📚 Tài liệu</a></p>';
+  if(ci.Link_Exercise)body+='<p><a href="'+esc(ci.Link_Exercise)+'" target="_blank">📝 Bài tập</a></p>';
+  if(!done) body+='<div style="margin-top:12px"><label style="font-size:.78rem;font-weight:600;display:block;margin-bottom:4px">Nộp bài:</label><input type="text" id="modalSubLink" class="form-input" placeholder="Paste link..."></div>';
+  else body+='<p style="margin-top:12px" class="pill pill-done">✅ Đã nộp</p>';
+  var footer=done?'<button class="btn btn-primary" onclick="closeModal()">Đóng</button>':'<button class="btn" onclick="closeModal()">Đóng</button><button class="btn btn-primary" onclick="submitFromModal('+sessionNo+')">Nộp bài</button>';
+  openModal('Buổi '+sessionNo+': '+ci.Task,body,footer);
+}
+
+// ==================== SUBMISSIONS ====================
+function submitAssignment(sn){
+  var link=document.getElementById('subLink-'+sn);if(!link||!link.value.trim()){showToast('Vui lòng paste link.','error');return;}
+  showLoading(true,'Đang nộp bài...');
+  google.script.run.withSuccessHandler(function(r){showLoading(false);if(r.status==='success'){showToast(r.message,'success');loadAppData();}else showToast(r.message,'error');})
+  .withFailureHandler(function(e){showLoading(false);showToast(e.message,'error');})
+  .submitAssignment({User_ID:currentUser.User_ID,Class_ID:currentUser.Class_ID,Session_No:sn,Link_Submission:link.value.trim()});
+}
+function submitFromModal(sn){
+  var link=document.getElementById('modalSubLink');if(!link||!link.value.trim()){showToast('Vui lòng paste link.','error');return;}
+  closeModal();showLoading(true,'Đang nộp bài...');
+  google.script.run.withSuccessHandler(function(r){showLoading(false);if(r.status==='success'){showToast(r.message,'success');loadAppData();}else showToast(r.message,'error');})
+  .withFailureHandler(function(e){showLoading(false);showToast(e.message,'error');})
+  .submitAssignment({User_ID:currentUser.User_ID,Class_ID:currentUser.Class_ID,Session_No:sn,Link_Submission:link.value.trim()});
+}
+
+// ==================== FEED ====================
+var feedMode = 'group'; // 'group' or 'class'
+
+function renderFeed(){
+  var groupName = appData.myGroup ? esc(appData.myGroup.Group_Name) : 'Nhóm';
+  var className = appData.myClass ? esc(appData.myClass.Class_Name) : 'Lớp';
+
+  // Toggle tabs
+  var html='<div class="feed-toggle">'
+    +'<button class="feed-toggle-btn '+(feedMode==='group'?'active':'')+'" onclick="switchFeedMode(\'group\')">👥 '+groupName+'</button>'
+    +'<button class="feed-toggle-btn '+(feedMode==='class'?'active':'')+'" onclick="switchFeedMode(\'class\')">🏫 Toàn lớp</button>'
+    +'</div>';
+
+  // Composer
+  var placeholderText = feedMode==='group' ? 'Chia sẻ với nhóm...' : 'Chia sẻ với toàn lớp...';
+  html+='<div class="post-composer"><div class="composer-row">'
+    +'<div class="avatar" style="background:'+esc(currentUser.Avatar_Color)+';color:#fff">'+getInitials(currentUser.Full_Name)+'</div>'
+    +'<div class="composer-input" onclick="openPostModal()">'+placeholderText+'</div></div></div>';
+
+  // Posts
+  var posts = feedMode==='group' ? (appData.discussions||[]) : (appData.classDiscussions||[]);
+  posts.forEach(function(d){
+    var author=findUser(d.User_ID);
+    var tc=d.Type==='review'?'badge-review':(d.Type==='question'?'badge-question':'badge-share');
+    var tl=d.Type==='review'?'Peer Review':(d.Type==='question'?'Câu hỏi':'Chia sẻ');
+    html+='<div class="post-card"><div class="post-header">'
+      +'<div class="avatar" style="background:'+esc(author.Avatar_Color)+';color:#fff">'+getInitials(author.Full_Name)+'</div>'
+      +'<div><div class="post-author">'+esc(author.Full_Name)+'</div><div class="post-time">'+timeAgo(d.Created_At)+'</div></div>'
+      +'<span class="post-type-badge '+tc+'">'+tl+'</span></div>'
+      +'<div class="post-body">'+esc(d.Content)+'</div>';
+    if(d.Attachment_Name) html+='<div class="post-attachment">📎 '+esc(d.Attachment_Name)+'</div>';
+    html+='<div class="post-actions"><button class="btn btn-sm" onclick="likePost(\''+d.Disc_ID+'\')">👍 '+(d.Likes||0)+'</button>'
+      +'<button class="btn btn-sm" onclick="toggleReplies(\''+d.Disc_ID+'\')">💬 Bình luận</button></div>';
+    var replies=[];try{replies=JSON.parse(d.Replies_JSON||'[]');}catch(e){}
+    html+='<div class="comments-section" id="replies-'+d.Disc_ID+'" style="display:'+(replies.length>0?'block':'none')+'">';
+    replies.forEach(function(r){var ru=findUser(r.userId);
+      html+='<div class="comment"><div class="avatar avatar-sm" style="background:'+esc(ru.Avatar_Color)+';color:#fff">'+getInitials(r.name)+'</div>'
+        +'<div class="comment-body"><div class="comment-author">'+esc(r.name)+'</div><div class="comment-text">'+esc(r.content)+'</div></div></div>';
+    });
+    html+='<div class="comment-compose"><input type="text" id="reply-input-'+d.Disc_ID+'" placeholder="Trả lời..." onkeypress="if(event.key===\'Enter\')sendReply(\''+d.Disc_ID+'\')"><button class="btn btn-sm btn-primary" onclick="sendReply(\''+d.Disc_ID+'\')">Gửi</button></div></div></div>';
+  });
+  if(posts.length===0) html+='<p style="text-align:center;color:var(--text-muted);padding:40px;font-style:italic">'+(feedMode==='group'?'Chưa có thảo luận nhóm.':'Chưa có thảo luận toàn lớp.')+'</p>';
+  document.getElementById('tab-feed').innerHTML=html;
+}
+
+function switchFeedMode(mode){
+  feedMode = mode;
+  renderFeed();
+}
+
+function openPostModal(){
+  var scopeLabel = feedMode==='group' ? '👥 Nhóm' : '🏫 Toàn lớp';
+  var body='<div class="form-group" style="margin-bottom:12px"><label class="form-label">Phạm vi</label><div class="pill pill-done" style="font-size:.82rem;padding:6px 12px">'+scopeLabel+'</div></div>'
+    +'<div class="form-group" style="margin-bottom:12px"><label class="form-label">Loại</label><select class="form-input" id="postType"><option value="share">💡 Chia sẻ</option><option value="question">❓ Câu hỏi</option><option value="review">📋 Peer Review</option></select></div>'
+    +'<div class="form-group" style="margin-bottom:12px"><label class="form-label">Nội dung</label><textarea class="review-comment" id="postContent" style="height:100px" placeholder="Viết gì đó..."></textarea></div>'
+    +'<div class="form-group"><label class="form-label">File đính kèm (nếu có)</label><input type="text" class="form-input" id="postAttach" placeholder="VD: bai_buoi3.psd"></div>';
+  openModal('Đăng bài mới',body,'<button class="btn" onclick="closeModal()">Hủy</button><button class="btn btn-primary" onclick="submitPost()">Đăng</button>');
+}
+function submitPost(){
+  var c=document.getElementById('postContent').value.trim();if(!c){showToast('Nội dung trống.','error');return;}
+  var targetGroupId = feedMode==='class' ? 'CLASS_'+activeClassId : (appData.myGroup?appData.myGroup.Group_ID:'');
+  closeModal();showLoading(true,'Đang đăng...');
+  google.script.run.withSuccessHandler(function(r){showLoading(false);if(r.status==='success'){showToast(r.message,'success');loadAppData();}else showToast(r.message,'error');})
+  .withFailureHandler(function(e){showLoading(false);showToast(e.message,'error');})
+  .postDiscussion({Group_ID:targetGroupId,User_ID:currentUser.User_ID,Content:c,Type:document.getElementById('postType').value,Attachment_Name:document.getElementById('postAttach').value.trim()});
+}
+function likePost(id){google.script.run.withSuccessHandler(function(r){if(r.status==='success')loadAppData();}).likeDiscussion(id);}
+function toggleReplies(id){var el=document.getElementById('replies-'+id);if(el)el.style.display=el.style.display==='none'?'block':'none';}
+function sendReply(id){
+  var inp=document.getElementById('reply-input-'+id);if(!inp||!inp.value.trim())return;
+  google.script.run.withSuccessHandler(function(r){if(r.status==='success')loadAppData();else showToast(r.message,'error');})
+  .addReplyToDiscussion(id,{User_ID:currentUser.User_ID,Full_Name:currentUser.Full_Name,Content:inp.value.trim()});
+}
+
+// ==================== PEER REVIEW WITH SCAFFOLDING (v2) ====================
+function renderReviewTab(){
+  var myRevIds=appData.reviewsGiven.map(function(r){return r.Sub_ID;});
+  var pending=appData.groupSubs.filter(function(s){return myRevIds.indexOf(s.Sub_ID)===-1;});
+
+  var html='<div class="section-title">📝 Bài chờ bạn review ('+pending.length+')</div>';
+  if(pending.length===0) html+='<p style="color:var(--text-muted);font-size:.82rem;font-style:italic;padding:10px 0">Không có bài nào cần review.</p>';
+
+  pending.forEach(function(s){
+    var author=findUser(s.User_ID);
+    html+='<div class="review-card"><div class="review-file"><div class="file-info"><div class="file-icon">🖼</div>'
+      +'<div><div class="file-name">Buổi '+s.Session_No+' — '+esc(author.Full_Name)+'</div>'
+      +'<div class="file-meta">Nộp lúc '+esc(s.Submitted_At)+'</div></div></div>'
+      +'<span class="pill pill-pending">Chờ review</span></div>'
+      +'<p style="margin-bottom:10px"><a href="'+esc(s.Link_Submission)+'" target="_blank" class="btn btn-sm">📂 Xem bài nộp</a></p>';
+
+    // Rubric stars
+    var cls = appData.myClass;
+    html+='<div class="rubric"><div class="rubric-title">Tiêu chí đánh giá</div>'
+      +buildStarRow(s.Sub_ID,cls.Skill1_Label,1)+buildStarRow(s.Sub_ID,cls.Skill2_Label,2)+buildStarRow(s.Sub_ID,cls.Skill3_Label,3)+'</div>';
+
+    // v2: Prompt Scaffolding
+    html+='<div class="scaffold-prompts"><div class="scaffold-title">💡 Gợi ý viết nhận xét (click để sử dụng)</div>'
+      +'<div class="scaffold-prompt" onclick="usePrompt(\''+s.Sub_ID+'\',\'Điểm mạnh nhất ở bài này là: \')"><div class="prompt-num">1</div>Điểm mạnh nhất bạn thấy ở bài này là gì?</div>'
+      +'<div class="scaffold-prompt" onclick="usePrompt(\''+s.Sub_ID+'\',\'Nếu đây là bài của mình, mình sẽ thay đổi: \')"><div class="prompt-num">2</div>Nếu đây là bài của bạn, bạn sẽ thay đổi gì đầu tiên?</div>'
+      +'<div class="scaffold-prompt" onclick="usePrompt(\''+s.Sub_ID+'\',\'Kỹ thuật cụ thể nên thử: \')"><div class="prompt-num">3</div>Có kỹ thuật cụ thể nào bạn đề xuất buddy nên thử?</div></div>';
+
+    html+='<textarea class="review-comment" id="reviewComment-'+s.Sub_ID+'" placeholder="Viết nhận xét chi tiết (dùng prompt gợi ý bên trên)..."></textarea>'
+      +'<div style="margin-top:8px"><button class="btn btn-primary" onclick="submitReview(\''+s.Sub_ID+'\')">Gửi review</button></div></div>';
+  });
+
+  // Reviews received
+  html+='<div class="section-title" style="margin-top:20px">📬 Review bạn đã nhận ('+appData.reviewsReceived.length+')</div>';
+  if(appData.reviewsReceived.length===0) html+='<p style="color:var(--text-muted);font-size:.82rem;font-style:italic">Chưa có review nào.</p>';
+  appData.reviewsReceived.forEach(function(r){
+    var rv=findUser(r.Reviewer_ID);
+    var avg=Math.round(((Number(r.Rating_Skill1)+Number(r.Rating_Skill2)+Number(r.Rating_Skill3))/3)*10)/10;
+    html+='<div class="review-card"><div class="review-file"><div class="file-info"><div class="file-icon">⭐</div>'
+      +'<div><div class="file-name">Review từ '+esc(rv.Full_Name)+'</div><div class="file-meta">Điểm TB: '+avg+'/5</div></div></div>'
+      +'<span class="pill pill-done">Đã nhận</span></div>'
+      +'<div style="font-size:.82rem;color:var(--text-secondary);background:var(--bg-secondary);padding:10px 12px;border-radius:6px">'
+      +esc(r.Comment)+'</div></div>';
+  });
+
+  // Teacher Reviews received
+  var tRevs = appData.teacherReviewsReceived || [];
+  html+='<div class="section-title" style="margin-top:20px">🎓 Đánh giá từ Giảng viên ('+tRevs.length+')</div>';
+  if(tRevs.length===0) html+='<p style="color:var(--text-muted);font-size:.82rem;font-style:italic">Giảng viên chưa đánh giá bài nào của bạn.</p>';
+  tRevs.forEach(function(tr){
+    var avg=Math.round(((Number(tr.Rating_Skill1)+Number(tr.Rating_Skill2)+Number(tr.Rating_Skill3))/3)*10)/10;
+    // Tìm bài nộp tương ứng
+    var sub = appData.mySubs.find(function(s){ return s.Sub_ID === tr.Sub_ID; });
+    var sessionLabel = sub ? 'Buổi '+sub.Session_No : '';
+    html+='<div class="review-card" style="border-left:3px solid var(--blue)"><div class="review-file"><div class="file-info"><div class="file-icon">🎓</div>'
+      +'<div><div class="file-name">Đánh giá GV — '+sessionLabel+'</div><div class="file-meta">Điểm TB: '+avg+'/5 · '+timeAgo(tr.Reviewed_At)+'</div></div></div>'
+      +'<span class="pill pill-done" style="background:var(--blue);color:#fff">GV</span></div>';
+    var cls=appData.myClass;
+    html+='<div style="display:flex;gap:16px;margin:8px 0;font-size:.78rem">'
+      +'<span style="color:var(--green)">'+esc(cls.Skill1_Label)+': <b>'+tr.Rating_Skill1+'/5</b></span>'
+      +'<span style="color:var(--blue)">'+esc(cls.Skill2_Label)+': <b>'+tr.Rating_Skill2+'/5</b></span>'
+      +'<span style="color:var(--purple)">'+esc(cls.Skill3_Label)+': <b>'+tr.Rating_Skill3+'/5</b></span>'
+      +'</div>'
+      +'<div style="font-size:.82rem;color:var(--text-secondary);background:var(--bg-secondary);padding:10px 12px;border-radius:6px">'
+      +esc(tr.Comment)+'</div></div>';
+  });
+  document.getElementById('tab-review').innerHTML=html;
+}
+
+function usePrompt(subId,promptText){
+  var ta=document.getElementById('reviewComment-'+subId);
+  if(ta){var cur=ta.value;ta.value=cur+(cur?'\n':'')+promptText;ta.focus();}
+}
+
+function buildStarRow(subId,label,skillNum){
+  var h='<div class="rubric-row"><div class="rubric-label">'+label+'</div><div class="stars">';
+  for(var i=1;i<=5;i++) h+='<div class="star" data-sub="'+subId+'" data-skill="'+skillNum+'" data-val="'+i+'" onclick="rateStar(this)">'+i+'</div>';
+  return h+'</div></div>';
+}
+function rateStar(el){
+  var v=Number(el.getAttribute('data-val')),sub=el.getAttribute('data-sub'),sk=el.getAttribute('data-skill');
+  var stars=document.querySelectorAll('.star[data-sub="'+sub+'"][data-skill="'+sk+'"]');
+  for(var i=0;i<stars.length;i++){Number(stars[i].getAttribute('data-val'))<=v?stars[i].classList.add('filled'):stars[i].classList.remove('filled');}
+}
+function getStarRating(sub,sk){return document.querySelectorAll('.star.filled[data-sub="'+sub+'"][data-skill="'+sk+'"]').length;}
+function submitReview(subId){
+  var s1=getStarRating(subId,1),s2=getStarRating(subId,2),s3=getStarRating(subId,3);
+  var comment=document.getElementById('reviewComment-'+subId);
+  if(s1===0&&s2===0&&s3===0){showToast('Vui lòng chấm điểm.','error');return;}
+  showLoading(true,'Đang gửi review...');
+  google.script.run.withSuccessHandler(function(r){showLoading(false);if(r.status==='success'){showToast(r.message,'success');loadAppData();}else showToast(r.message,'error');})
+  .withFailureHandler(function(e){showLoading(false);showToast(e.message,'error');})
+  .submitReview({Sub_ID:subId,Reviewer_ID:currentUser.User_ID,Rating_Skill1:s1,Rating_Skill2:s2,Rating_Skill3:s3,Comment:comment?comment.value.trim():''});
+}
+/* ESOFT LEARNING BUDDY v2 — JavaScript Part 2: Members, Progress, Journal, Teacher UI, Utilities */
+
+// ==================== MEMBERS & LEADERBOARD ====================
+var membersMode = 'group'; // 'group' or 'leaderboard'
+
+function renderMembersTab(){
+  var html='';
+  (appData.groupMembers||[]).forEach(function(m){
+    var isMe=m.User_ID===currentUser.User_ID;
+    var subs=isMe?appData.mySubs:(appData.groupSubs||[]).filter(function(s){return s.User_ID===m.User_ID;});
+    var revCount=isMe?appData.reviewsGiven.length:0;
+    html+='<div class="member-card"><div class="avatar avatar-lg" style="background:'+esc(m.Avatar_Color)+';color:#fff">'+getInitials(m.Full_Name)+'</div>'
+      +'<div class="member-info"><div class="member-name">'+esc(m.Full_Name)+(isMe?'<span class="you-badge">Bạn</span>':'')+'</div>'
+      +'<div class="member-role">Thành viên · '+(appData.myClass?esc(appData.myClass.Class_Name):'')+'</div></div>'
+      +'<div class="member-stats"><div class="m-stat"><div class="m-stat-val">'+subs.length+'</div><div class="m-stat-lbl">Bài nộp</div></div>'
+      +'<div class="m-stat"><div class="m-stat-val">'+revCount+'</div><div class="m-stat-lbl">Review</div></div></div></div>';
+  });
+  document.getElementById('tab-members').innerHTML=html;
+}
+
+function renderLeaderboardTab(){
+  var lb = appData.leaderboard || [];
+  var myGroupId = appData.myGroup ? appData.myGroup.Group_ID : '';
+  var html='<table class="data-table"><thead><tr>'
+    +'<th style="width:40px">#</th><th>Học viên</th><th>Nhóm</th>'
+    +'<th style="text-align:center">Bài nộp</th>'
+    +'<th style="text-align:center">⭐ Peer</th>'
+    +'<th style="text-align:center">🎓 GV</th></tr></thead><tbody>';
+
+  lb.forEach(function(st, idx){
+    var rank = idx + 1;
+    var medal = rank===1?'🥇':(rank===2?'🥈':(rank===3?'🥉':rank));
+    var isMe = st.User_ID === currentUser.User_ID;
+    var isMyGroup = st.Group_ID === myGroupId;
+    var rowStyle = isMe ? 'background:var(--green-light);font-weight:600' : (isMyGroup ? 'background:var(--bg-secondary)' : '');
+
+    var peerColor = st.avgScore>=4?'var(--green)':(st.avgScore>=3?'var(--amber)':'var(--red)');
+    var teacherColor = st.teacherAvgScore>=4?'var(--green)':(st.teacherAvgScore>=3?'var(--amber)':(st.teacherAvgScore>0?'var(--red)':'var(--text-muted)'));
+    var teacherDisplay = st.teacherAvgScore>0 ? st.teacherAvgScore+'/5' : '—';
+
+    html+='<tr style="'+rowStyle+'">'
+      +'<td style="text-align:center;font-size:'+(rank<=3?'1.1rem':'.82rem')+'">'+medal+'</td>'
+      +'<td><div style="display:flex;align-items:center;gap:8px">'
+      +'<div class="avatar avatar-sm" style="background:'+esc(st.Avatar_Color)+';color:#fff">'+getInitials(st.Full_Name)+'</div>'
+      +esc(st.Full_Name)+(isMe?'<span class="you-badge">Bạn</span>':'')+'</div></td>'
+      +'<td><span class="pill '+(isMyGroup?'pill-done':'pill-new')+'">'+esc(st.Group_Name||'—')+'</span></td>'
+      +'<td style="text-align:center">'+st.subCount+'</td>'
+      +'<td style="text-align:center;font-weight:700;color:'+peerColor+'">'+st.avgScore+'/5</td>'
+      +'<td style="text-align:center;font-weight:700;color:'+teacherColor+'">'+teacherDisplay+'</td>'
+      +'</tr>';
+  });
+  html+='</tbody></table>';
+  if(lb.length===0) html+='<p style="text-align:center;color:var(--text-muted);padding:40px;font-style:italic">Chưa có dữ liệu xếp hạng.</p>';
+  document.getElementById('tab-leaderboard').innerHTML=html;
+}
+
+
+// ==================== PROGRESS ====================
+function renderProgressTab(){
+  showLoading(true,'Đang tính tiến độ...');
+  google.script.run.withSuccessHandler(function(p){
+    showLoading(false);if(p.status!=='success'){showToast(p.message,'error');return;}
+    var html='<div class="stats-grid">'
+      +'<div class="stat-card"><div class="stat-icon">📝</div><div class="stat-label">Bài đã nộp</div><div class="stat-value">'+p.submitted+'/'+p.totalSessions+'</div></div>'
+      +'<div class="stat-card"><div class="stat-icon">📤</div><div class="stat-label">Review đã cho</div><div class="stat-value">'+p.reviewsGiven+'</div></div>'
+      +'<div class="stat-card"><div class="stat-icon">📥</div><div class="stat-label">Review nhận</div><div class="stat-value">'+p.reviewsReceived+'</div></div>'
+      +'<div class="stat-card"><div class="stat-icon">⭐</div><div class="stat-label">Điểm TB</div><div class="stat-value">'+p.avgScore+'<span style="font-size:.7rem;color:var(--text-muted)">/5</span></div></div></div>';
+    html+='<div class="section-title">💡 Gợi ý học tập (Spaced Repetition)</div><div class="card" style="border-left:4px solid var(--blue)"><div class="card-body">'
+      +'<p style="font-size:0.9rem; margin-bottom:8px;"><strong>Dựa trên tiến độ, dưới đây là phương pháp ôn tập phù hợp với bạn:</strong></p>'
+      +'<ul style="font-size:0.85rem; color:var(--text-color); margin-left:20px; line-height:1.5;">'
+      +'<li><strong>Retrieval Practice:</strong> Hãy thử nhắm mắt lại và tự nhớ lại 3 công cụ/lý thuyết chính đã học ở buổi '+Math.max(1, p.submitted)+' thay vì mở tài liệu ra xem ngay.</li>'
+      +'<li><strong>Spaced Repetition:</strong> Các bài thực hành cũ (Buổi '+(Math.max(1, p.submitted-2))+') nên được lôi ra luyện lại 1 lần vào cuối tuần để ngấm sâu hơn. Nhớ tham khảo chéo qua tab Peer Review!</li>'
+      +'<li><strong>Tự thực hành:</strong> Hãy chọn ít nhất 1 bài tập ngoại khoá tự tìm để áp dụng tổ hợp kỹ năng của buổi gần nhất.</li>'
+      +'</ul></div></div>';
+    html+='<div class="card"><div class="card-body" style="text-align:center;padding:20px">'
+      +'<div style="font-size:2.5rem;font-weight:700;color:var(--green)">'+p.completionRate+'%</div>'
+      +'<div style="font-size:.82rem;color:var(--text-muted)">Hoàn thành lộ trình</div>'
+      +'<div class="progress-bar progress-bar-lg" style="margin:10px auto 0"><div class="progress-fill" style="width:'+p.completionRate+'%"></div></div></div></div>';
+    document.getElementById('tab-progress').innerHTML=html;
+  }).withFailureHandler(function(e){showLoading(false);showToast(e.message,'error');}).getStudentProgress(currentUser.User_ID,activeClassId);
+}
+
+// ==================== JOURNAL (v2 - Metacognition) ====================
+function renderJournalTab(){
+  var cls=appData.myClass;var totalSess=cls?Number(cls.Total_Sessions):10;
+  var submittedSessions={};appData.mySubs.forEach(function(s){submittedSessions[String(s.Session_No)]=true;});
+  var currentSession=1;for(var i=1;i<=totalSess;i++){if(!submittedSessions[String(i)]){currentSession=i;break;}if(i===totalSess)currentSession=totalSess;}
+
+  // Compose form
+  var html='<div class="journal-compose"><div class="journal-compose-title">📝 Nhật ký học tập — Buổi '+currentSession+'</div>'
+    +'<div class="journal-prompt"><label><span class="j-icon">✅</span> Hôm nay tôi đã học được gì?</label>'
+    +'<textarea id="jrnLearned" placeholder="VD: Biết cách dùng Camera Raw Filter chỉnh WB, dùng eyedropper chọn neutral gray..."></textarea></div>'
+    +'<div class="journal-prompt"><label><span class="j-icon">❓</span> Điều gì vẫn còn mơ hồ?</label>'
+    +'<textarea id="jrnConfused" placeholder="VD: Chưa rõ khi nào dùng Temp vs Color Grading panel..."></textarea></div>'
+    +'<div class="journal-prompt"><label><span class="j-icon">🎯</span> Tuần tới tôi sẽ thử áp dụng gì?</label>'
+    +'<textarea id="jrnNext" placeholder="VD: Thử chỉnh 5 ảnh thêm, tập trung WB consistency..."></textarea></div>'
+    +'<button class="btn btn-primary" onclick="submitJournal('+currentSession+')">💾 Lưu nhật ký</button></div>';
+
+  // Past entries
+  html+='<div class="section-title">📖 Các bài nhật ký trước đây ('+appData.myJournals.length+')</div>';
+  if(appData.myJournals.length===0) html+='<p style="color:var(--text-muted);font-style:italic;padding:10px 0">Chưa có nhật ký nào. Hãy viết bài đầu tiên!</p>';
+  appData.myJournals.forEach(function(j){
+    html+='<div class="journal-entry"><div class="journal-entry-header"><div class="journal-session">Buổi '+j.Session_No+'</div><div class="journal-date">'+timeAgo(j.Created_At)+'</div></div>'
+      +'<div class="journal-section"><div class="journal-section-label">✅ Đã học được</div><div class="journal-section-text">'+esc(j.Learned)+'</div></div>';
+    if(j.Confused) html+='<div class="journal-section"><div class="journal-section-label">❓ Còn mơ hồ</div><div class="journal-section-text confused">'+esc(j.Confused)+'</div></div>';
+    if(j.Next_Steps) html+='<div class="journal-section"><div class="journal-section-label">🎯 Sẽ áp dụng</div><div class="journal-section-text next">'+esc(j.Next_Steps)+'</div></div>';
+    html+='</div>';
+  });
+  document.getElementById('tab-journal').innerHTML=html;
+}
+
+function submitJournal(sn){
+  var learned=document.getElementById('jrnLearned').value.trim();
+  if(!learned){showToast('Hãy viết ít nhất phần "Đã học được".','error');return;}
+  showLoading(true,'Đang lưu nhật ký...');
+  google.script.run.withSuccessHandler(function(r){showLoading(false);if(r.status==='success'){showToast(r.message,'success');loadAppData();}else showToast(r.message,'error');})
+  .withFailureHandler(function(e){showLoading(false);showToast(e.message,'error');})
+  .postJournal({User_ID:currentUser.User_ID,Class_ID:currentUser.Class_ID,Session_No:sn,
+    Learned:learned,Confused:document.getElementById('jrnConfused').value.trim(),Next_Steps:document.getElementById('jrnNext').value.trim()});
+}
+
+// ==================== TEACHER UI ====================
+function buildTeacherUI(){
+  document.getElementById('sidebarUserInfo').innerHTML='<div class="avatar" style="background:var(--green);color:#fff">'+getInitials(currentUser.Full_Name)+'</div>'
+    +'<div class="user-info-text"><div class="user-name">'+esc(currentUser.Full_Name)+'</div><div class="user-class">Giảng viên</div></div>';
+  var alertCount=(appData.students||[]).filter(function(s){return s.level==='needs-help'||s.level==='inactive';}).length;
+  var nav='<div class="nav-section">Quản lý</div>'
+    +'<div class="nav-item active" onclick="switchTab(\'t-dashboard\',this)"><div class="nav-dot" style="background:#1D9E75"></div><span>Dashboard</span></div>'
+    +'<div class="nav-item" onclick="switchTab(\'t-students\',this)"><div class="nav-dot" style="background:#3B82F6"></div><span>Chi tiết HV</span></div>'
+    +'<div class="nav-item" onclick="switchTab(\'t-groups\',this)"><div class="nav-dot" style="background:#7F77DD"></div><span>Nhóm học</span></div>'
+    +'<div class="nav-item" onclick="switchTab(\'t-alerts\',this)"><div class="nav-dot" style="background:#E24B4A"></div><span>Cảnh báo</span>'+(alertCount>0?'<span class="nav-badge">'+alertCount+'</span>':'')+'</div>';
+
+  // Nút đổi lớp nếu GV có nhiều lớp
+  if (currentUser.classList && currentUser.classList.length > 1) {
+    nav += '<div class="nav-section">Lớp học</div>'
+      + '<div class="nav-item" onclick="switchClassFromSidebar()" style="color:var(--green);font-weight:600"><div class="nav-dot" style="background:var(--green)"></div><span>🔄 Đổi lớp</span></div>';
+  }
+  document.getElementById('sidebarNav').innerHTML=nav;
+  renderTeacherDashboard();renderTeacherStudents();renderTeacherGroups();renderTeacherAlerts();
+  switchTab('t-dashboard',document.querySelector('.nav-item'));
+}
+
+// ==================== TEACHER DASHBOARD (ENHANCED v2) ====================
+function renderTeacherDashboard(){
+  var td=appData,cls=td.myClass,totalSubs=td.submissions.length,totalRevs=td.reviews.length,totalStudents=td.students.length;
+  var totalSess=cls?Number(cls.Total_Sessions):10;
+  var avgScore=0;
+  if(td.reviews.length>0){var t=0;td.reviews.forEach(function(r){t+=(Number(r.Rating_Skill1)+Number(r.Rating_Skill2)+Number(r.Rating_Skill3))/3;});avgScore=Math.round((t/td.reviews.length)*10)/10;}
+  var inactive=td.students.filter(function(s){return s.level==='inactive'||s.level==='needs-help';}).length;
+  var leading=td.students.filter(function(s){return s.level==='leading';}).length;
+  var avgCompletion=0;if(td.students.length>0){var tc=0;td.students.forEach(function(s){tc+=s.completionRate;});avgCompletion=Math.round(tc/td.students.length);}
+
+  document.getElementById('topbar').innerHTML='<div><h2>Dashboard — '+(cls?esc(cls.Class_Name):'Lớp')+'</h2><div class="topbar-meta">'+totalStudents+' học viên · '+td.groups.length+' nhóm</div></div>';
+
+  var html='<div class="stats-grid">'
+    +'<div class="stat-card"><div class="stat-icon">📝</div><div class="stat-label">Tổng bài nộp</div><div class="stat-value">'+totalSubs+'</div><div class="stat-sub">TB '+Math.round(totalSubs/Math.max(totalStudents,1))+' bài/HV</div></div>'
+    +'<div class="stat-card"><div class="stat-icon">⭐</div><div class="stat-label">Điểm TB lớp</div><div class="stat-value">'+avgScore+'<span style="font-size:.7rem">/5</span></div></div>'
+    +'<div class="stat-card"><div class="stat-icon">🟢</div><div class="stat-label">HV dẫn đầu</div><div class="stat-value" style="color:var(--green)">'+leading+'</div></div>'
+    +'<div class="stat-card"><div class="stat-icon">🔴</div><div class="stat-label">Cần hỗ trợ</div><div class="stat-value" style="color:var(--red)">'+inactive+'</div></div>'
+    +'<div class="stat-card"><div class="stat-icon">📊</div><div class="stat-label">Tiến độ TB</div><div class="stat-value">'+avgCompletion+'%</div></div>'
+    +'<div class="stat-card"><div class="stat-icon">🔁</div><div class="stat-label">Peer Reviews</div><div class="stat-value">'+totalRevs+'</div></div></div>';
+
+  // Student overview table
+  html+='<div class="section-title">👨‍🎓 Tổng quan học viên</div>'
+    +'<table class="data-table"><thead><tr><th>Học viên</th><th>Level</th><th>Bài nộp</th><th title="Điểm trung bình từ bạn cùng lớp">⭐ Peer</th><th title="Điểm trung bình từ Giảng viên">🎓 GV</th><th>Yếu nhất</th><th>Tiến độ</th></tr></thead><tbody>';
+  td.students.forEach(function(s){
+    var levelClass='level-'+s.level.replace('_','-');
+    var levelLabel=s.level==='leading'?'🟢 Dẫn đầu':(s.level==='on-track'?'🟡 Theo kịp':(s.level==='needs-help'?'🔴 Cần hỗ trợ':'⚫ Chưa HĐ'));
+    var barColor=s.completionRate>=60?'var(--green)':'var(--red)';
+    html+='<tr class="clickable-row" onclick="showStudentModal(\''+s.User_ID+'\')">'
+      +'<td><div style="display:flex;align-items:center;gap:8px"><div class="avatar avatar-sm" style="background:'+esc(s.Avatar_Color)+';color:#fff">'+getInitials(s.Full_Name)+'</div>'+esc(s.Full_Name)+'</div></td>'
+      +'<td><span class="level-badge '+levelClass+'">'+levelLabel+'</span></td>'
+      +'<td>'+s.submitted+'/'+totalSess+'</td>'
+      +'<td><span style="font-weight:600;color:var(--amber)">'+s.avgScore+'</span></td>'
+      +'<td><span style="font-weight:700;color:var(--blue)">'+(s.teacherAvgScore > 0 ? s.teacherAvgScore : '—')+'</span></td>'
+      +'<td>'+(s.weakest?'<span class="sdc-weakness">'+esc(s.weakest)+'</span>':'—')+'</td>'
+      +'<td><div class="progress-bar"><div class="progress-fill" style="width:'+s.completionRate+'%;background:'+barColor+'"></div></div></td></tr>';
+  });
+  html+='</tbody></table>';
+
+  // Groups progress
+  html+='<div class="section-title" style="margin-top:16px">📊 Tiến độ theo nhóm</div>'
+    +'<table class="data-table"><thead><tr><th>Nhóm</th><th>Thành viên</th><th>Bài nộp</th><th>Review</th><th>Tiến độ</th></tr></thead><tbody>';
+  td.groups.forEach(function(g){
+    var mids=String(g.Members||'').split(',').map(function(s){return s.trim();});
+    var gs=td.submissions.filter(function(s){return mids.indexOf(s.User_ID)!==-1;});
+    var gr=td.reviews.filter(function(r){return mids.indexOf(r.Reviewer_ID)!==-1;});
+    var te=mids.length*totalSess;var pct=te>0?Math.round((gs.length/te)*100):0;
+    var chips='';mids.forEach(function(id){var u=findUser(id);chips+='<span class="member-chip">'+getInitials(u.Full_Name)+'</span>';});
+    html+='<tr><td style="font-weight:600">'+esc(g.Group_Name)+'</td><td><div class="member-chips">'+chips+'</div></td>'
+      +'<td>'+gs.length+'</td><td>'+gr.length+'</td>'
+      +'<td><div class="progress-bar"><div class="progress-fill" style="width:'+pct+'%;background:'+(pct>=60?'var(--green)':'var(--red)')+'"></div></div></td></tr>';
+  });
+  html+='</tbody></table>';
+  document.getElementById('tab-t-dashboard').innerHTML=html;
+}
+
+// ==================== TEACHER: STUDENT DETAIL VIEW (v2) ====================
+function renderTeacherStudents(){
+  var html='<div class="section-title">👨‍🎓 Chi tiết từng học viên</div><div class="student-detail-grid">';
+  var totalSess=appData.myClass?Number(appData.myClass.Total_Sessions):10;
+  appData.students.forEach(function(s){
+    var levelClass='level-'+s.level.replace('_','-');
+    var levelLabel=s.level==='leading'?'🟢 Dẫn đầu':(s.level==='on-track'?'🟡 Theo kịp':(s.level==='needs-help'?'🔴 Cần hỗ trợ':'⚫ Chưa HĐ'));
+    html+='<div class="student-detail-card" onclick="showStudentModal(\''+s.User_ID+'\')">'
+      +'<div class="sdc-header"><div class="avatar" style="background:'+esc(s.Avatar_Color)+';color:#fff">'+getInitials(s.Full_Name)+'</div>'
+      +'<div><div class="sdc-name">'+esc(s.Full_Name)+'</div><div class="sdc-group">Nhóm: '+esc(s.Group_ID)+'</div></div>'
+      +'<span class="level-badge '+levelClass+'" style="margin-left:auto">'+levelLabel+'</span></div>'
+      +'<div class="sdc-stats"><div class="sdc-stat"><div class="sdc-stat-val">'+s.submitted+'/'+totalSess+'</div><div class="sdc-stat-lbl">Bài nộp</div></div>'
+      +'<div class="sdc-stat"><div class="sdc-stat-val" style="color:var(--amber)">'+s.avgScore+'</div><div class="sdc-stat-lbl">Peer</div></div>'
+      +'<div class="sdc-stat"><div class="sdc-stat-val" style="color:var(--blue)">'+(s.teacherAvgScore > 0 ? s.teacherAvgScore : '—')+'</div><div class="sdc-stat-lbl">GV Chấm</div></div>'
+      +'<div class="sdc-stat"><div class="sdc-stat-val">'+s.completionRate+'%</div><div class="sdc-stat-lbl">Tiến độ</div></div></div>'
+      +'<div class="sdc-skills">'
+      +buildSkillBar(appData.myClass.Skill1_Label,s.skillScores.skill1,5,'var(--green)')
+      +buildSkillBar(appData.myClass.Skill2_Label,s.skillScores.skill2,5,'var(--blue)')
+      +buildSkillBar(appData.myClass.Skill3_Label,s.skillScores.skill3,5,'var(--purple)')+'</div>';
+    if(s.weakest) html+='<div class="sdc-weakness">⚠️ Yếu nhất: '+esc(s.weakest)+'</div>';
+    html+='</div>';
+  });
+  html+='</div>';
+  document.getElementById('tab-t-students').innerHTML=html;
+}
+
+function showStudentModal(userId){
+  var st = (appData.students || []).find(function(s) { return String(s.User_ID) === String(userId); });
+  if(!st) {
+    console.warn('Student not found:', userId);
+    showToast('Không tìm thấy thông tin học viên.', 'error');
+    return;
+  }
+  var levelLabel=st.level==='leading'?'🟢 Dẫn đầu':(st.level==='on-track'?'🟡 Theo kịp':(st.level==='needs-help'?'🔴 Cần hỗ trợ':'⚫ Chưa HĐ'));
+  var body='<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">'
+    +'<div class="avatar avatar-lg" style="background:'+esc(st.Avatar_Color)+';color:#fff">'+getInitials(st.Full_Name)+'</div>'
+    +'<div><div style="font-size:1rem;font-weight:600">'+esc(st.Full_Name)+'</div>'
+    +'<div style="font-size:.78rem;color:var(--text-muted)">'+levelLabel+' · Nhóm: '+esc(st.Group_ID)+'</div></div></div>';
+  body+='<div class="stats-grid" style="margin-bottom:12px">'
+    +'<div class="stat-card"><div class="stat-label">Bài nộp</div><div class="stat-value">'+st.submitted+'</div></div>'
+    +'<div class="stat-card"><div class="stat-label">Peer Review</div><div class="stat-value" style="color:var(--amber)">'+st.avgScore+'</div></div>'
+    +'<div class="stat-card"><div class="stat-label">GV Chấm</div><div class="stat-value" style="color:var(--blue)">'+(st.teacherAvgScore > 0 ? st.teacherAvgScore : '—')+'</div></div>'
+    +'<div class="stat-card"><div class="stat-label">Tiến độ</div><div class="stat-value">'+st.completionRate+'%</div></div></div>';
+  body+=buildSkillBar(appData.myClass.Skill1_Label,st.skillScores.skill1,5,'var(--green)')
+    +buildSkillBar(appData.myClass.Skill2_Label,st.skillScores.skill2,5,'var(--blue)')
+    +buildSkillBar(appData.myClass.Skill3_Label,st.skillScores.skill3,5,'var(--purple)');
+  if(st.weakest) body+='<div class="alert-row alert-blue" style="margin-top:12px"><div class="alert-text">⚠️ Kỹ năng yếu nhất: <strong>'+esc(st.weakest)+'</strong>. Đề xuất cần theo dõi thêm.</div></div>';
+
+  // Submissions list for teacher to review
+  var stSubs = (appData.submissions || []).filter(function(s) { return s.User_ID === userId; });
+  body += '<div class="section-title" style="margin-top:16px">📄 Danh sách bài nộp ('+stSubs.length+')</div>';
+  if (stSubs.length === 0) {
+    body += '<p style="font-size:.82rem;color:var(--text-muted);font-style:italic">Học viên chưa nộp bài nào.</p>';
+  } else {
+    body += '<div style="display:flex;flex-direction:column;gap:8px">';
+    stSubs.forEach(function(s) {
+      var tRev = (appData.teacherReviews || []).find(function(tr) { return tr.Sub_ID === s.Sub_ID; });
+      var peerRevs = (appData.reviews || []).filter(function(r) { return r.Sub_ID === s.Sub_ID; });
+      var topic = (appData.curriculum || []).find(function(c) { return String(c.Session_No) === String(s.Session_No); });
+      var tName = topic ? (' — ' + esc(topic.Topic_Name)) : '';
+      
+      body += '<div class="review-card" style="margin-bottom:0;border-left:3px solid '+(tRev?'var(--blue)':'var(--border)')+'">'
+        + '<div style="display:flex;justify-content:space-between;align-items:flex-start">'
+        + '<div><div style="font-weight:600;font-size:.85rem">Buổi '+s.Session_No+tName+'</div>'
+        + '<div style="font-size:.72rem;color:var(--text-muted)">Nộp: '+esc(s.Submitted_At)+'</div></div>'
+        + '<button class="btn btn-sm '+(tRev?'btn-secondary':'btn-primary')+'" onclick="openTeacherReviewModal(\''+s.Sub_ID+'\',\''+userId+'\')">'
+        + (tRev?'📝 Sửa điểm GV':'🎓 GV chấm bài') + '</button></div>'
+        + '<div style="margin-top:8px;display:flex;gap:12px;font-size:.75rem">'
+        + '<span>💬 '+peerRevs.length+' Peer Reviews</span>'
+        + (tRev ? '<span style="color:var(--blue);font-weight:600">✅ GV đã chấm</span>' : '<span style="color:var(--text-muted)">⏳ GV chưa chấm</span>')
+        + '</div></div>';
+    });
+    body += '</div>';
+  }
+
+  // Show journals if available
+  var stJournals=(appData.journals||[]).filter(function(j){return j.User_ID===userId;});
+  if(stJournals.length>0){
+    body+='<div class="section-title" style="margin-top:16px">📖 Nhật ký gần nhất</div>';
+    stJournals.slice(0,2).forEach(function(j){
+      body+='<div class="journal-entry" style="border-left-color:var(--blue);margin-bottom:8px"><div class="journal-entry-header"><div class="journal-session">Buổi '+j.Session_No+'</div><div class="journal-date">'+timeAgo(j.Created_At)+'</div></div>'
+        +'<div class="journal-section"><div class="journal-section-label">✅ Đã học</div><div class="journal-section-text">'+esc(j.Learned)+'</div></div>';
+      if(j.Confused) body+='<div class="journal-section"><div class="journal-section-label">❓ Mơ hồ</div><div class="journal-section-text confused">'+esc(j.Confused)+'</div></div>';
+      body+='</div>';
+    });
+  }
+  openModal('Chi tiết — '+st.Full_Name,body,'<button class="btn" onclick="closeModal()">Đóng</button>');
+}
+
+function openTeacherReviewModal(subId, studentId) {
+  var sub = appData.submissions.find(function(s) { return s.Sub_ID === subId; });
+  var tRev = (appData.teacherReviews || []).find(function(tr) { return tr.Sub_ID === subId; });
+  var peerRevs = (appData.reviews || []).filter(function(r) { return r.Sub_ID === subId; });
+  var cls = appData.myClass;
+
+  var topic = appData.curriculum ? appData.curriculum.find(function(c){return String(c.Session_No)===String(sub.Session_No);}) : null;
+  var topicName = topic ? (' - ' + esc(topic.Topic_Name)) : '';
+
+  var body = '<div style="margin-bottom:12px"><a href="'+esc(sub.Link_Submission)+'" target="_blank" class="btn btn-sm btn-secondary">📂 Mở link bài nộp (Buổi '+sub.Session_No+topicName+')</a></div>';
+  
+  // Hiển thị tóm tắt Peer Reviews để GV tham khảo
+  if (peerRevs.length > 0) {
+    body += '<div class="alert-row alert-blue" style="margin-bottom:16px"><div class="alert-text">💡 <strong>Tóm tắt Peer Review:</strong> ' + peerRevs.length + ' bạn đã chấm bài này. Điểm TB: ' 
+      + Math.round((peerRevs.reduce(function(a,b){return a+(Number(b.Rating_Skill1)+Number(b.Rating_Skill2)+Number(b.Rating_Skill3))/3;},0)/peerRevs.length)*10)/10 + '/5.</div></div>';
+  }
+
+  body += '<div class="rubric" style="background:var(--bg-secondary);padding:15px;border-radius:var(--radius); border: 1px solid var(--border)">'
+    + '<div class="rubric-title">Đánh giá của Giảng viên</div>'
+    + buildStarRow(subId, cls.Skill1_Label, 1)
+    + buildStarRow(subId, cls.Skill2_Label, 2)
+    + buildStarRow(subId, cls.Skill3_Label, 3)
+    + '<div class="form-group" style="margin-top:12px"><label class="form-label">Nhận xét chi tiết</label>'
+    + '<textarea class="review-comment" id="t-reviewComment-'+subId+'" style="height:100px" placeholder="Nhận xét của GV...">'+(tRev?esc(tRev.Comment):'')+'</textarea></div>'
+    + '</div>';
+
+  openModal('Chấm bài — ' + subId, body, 
+    '<button class="btn" onclick="showStudentModal(\''+studentId+'\')">Quay lại</button>'
+    + '<button class="btn btn-primary" onclick="submitTeacherReviewAction(\''+subId+'\')">' + (tRev?'Cập nhật điểm':'Lưu đánh giá') + '</button>');
+
+  // Fill existing stars if editing
+  if (tRev) {
+    setTimeout(function() {
+      [1, 2, 3].forEach(function(sk) {
+        var v = tRev['Rating_Skill'+sk];
+        var stars = document.querySelectorAll('.star[data-sub="'+subId+'"][data-skill="'+sk+'"]');
+        for (var i = 0; i < stars.length; i++) {
+          if (Number(stars[i].getAttribute('data-val')) <= v) stars[i].classList.add('filled');
+        }
+      });
+    }, 100);
+  }
+}
+
+function submitTeacherReviewAction(subId) {
+  var comment = document.getElementById('t-reviewComment-' + subId).value.trim();
+  if (!comment) { showToast('Hãy viết nhận xét.', 'error'); return; }
+
+  var scores = {};
+  var hasMissing = false;
+  [1, 2, 3].forEach(function(sk) {
+    var stars = document.querySelectorAll('.star[data-sub="' + subId + '"][data-skill="' + sk + '"].filled');
+    var activeStar = stars.length > 0 ? stars[stars.length - 1] : null;
+    scores['Rating_Skill' + sk] = activeStar ? Number(activeStar.getAttribute('data-val')) : 0;
+    if (scores['Rating_Skill' + sk] === 0) hasMissing = true;
+  });
+
+  if (hasMissing) {
+    showToast('Hãy chấm đủ 3 tiêu chí.', 'error'); return;
+  }
+
+  showLoading(true, 'Đang lưu đánh giá...');
+  google.script.run.withSuccessHandler(function(r) {
+    showLoading(false);
+    if (r.status === 'success') {
+      showToast(r.message, 'success');
+      loadAppData(); // Reload to refresh leaderboard & teacherReviews
+      closeModal();
+    } else showToast(r.message, 'error');
+  }).withFailureHandler(function(e) {
+    showLoading(false);
+    showToast(e.message, 'error');
+  }).submitTeacherReview({
+    Sub_ID: subId,
+    Teacher_ID: currentUser.User_ID,
+    Rating_Skill1: scores.Rating_Skill1,
+    Rating_Skill2: scores.Rating_Skill2,
+    Rating_Skill3: scores.Rating_Skill3,
+    Comment: comment
+  });
+}
+
+// ==================== TEACHER: GROUPS ====================
+function renderTeacherGroups(){
+  var html='';
+  appData.groups.forEach(function(g){
+    var mids=String(g.Members||'').split(',').map(function(s){return s.trim();});
+    var chips='';mids.forEach(function(id){var u=findUser(id);chips+='<span class="member-chip" style="padding:5px 10px">'+getInitials(u.Full_Name)+' — '+esc(u.Full_Name)+'</span>';});
+    html+='<div class="card"><div class="card-header"><span style="font-weight:600">'+esc(g.Group_Name)+'</span><span class="pill pill-done">'+mids.length+' thành viên</span></div>'
+      +'<div class="card-body"><div class="member-chips">'+chips+'</div></div></div>';
+  });
+  document.getElementById('tab-t-groups').innerHTML=html;
+}
+
+// ==================== TEACHER: ALERTS & BUDDY MATCHING (v2) ====================
+function renderTeacherAlerts(){
+  var totalSess=appData.myClass?Number(appData.myClass.Total_Sessions):10;
+  var html='';
+
+  // Buddy matching suggestions
+  var matches=appData.buddyMatches||[];
+  if(matches.length>0){
+    html+='<div class="section-title">🤝 Gợi ý ghép Buddy (ZPD Matching)</div>'
+      +'<p style="font-size:.78rem;color:var(--text-muted);margin-bottom:10px">Dựa trên điểm peer review, hệ thống gợi ý ghép HV dẫn đầu kèm HV cần hỗ trợ.</p>';
+    matches.forEach(function(m){
+      html+='<div class="buddy-match">'
+        +'<div class="buddy-person"><div class="avatar" style="background:'+esc(m.mentor.Avatar_Color)+';color:#fff">'+getInitials(m.mentor.Full_Name)+'</div>'
+        +'<div class="buddy-person-info"><div class="bp-name">'+esc(m.mentor.Full_Name)+'</div><div class="bp-detail">🟢 Mentor · Điểm TB: '+m.mentor.avgScore+'/5</div></div></div>'
+        +'<div class="buddy-arrow">→</div>'
+        +'<div class="buddy-person"><div class="avatar" style="background:'+esc(m.mentee.Avatar_Color)+';color:#fff">'+getInitials(m.mentee.Full_Name)+'</div>'
+        +'<div class="buddy-person-info"><div class="bp-name">'+esc(m.mentee.Full_Name)+'</div><div class="bp-detail">'+(m.mentee.level==='inactive'?'⚫ Chưa HĐ':'🔴 Cần hỗ trợ')+' · Yếu: '+(m.mentee.weakest||'N/A')+'</div></div></div></div>';
+    });
+  }
+
+  // Inactive students
+  var inactive=appData.students.filter(function(s){return s.level==='inactive';});
+  html+='<div class="section-title">⚠️ Học viên chưa nộp bài ('+inactive.length+')</div>';
+  if(inactive.length===0) html+='<p style="color:var(--text-muted);font-style:italic;padding:10px 0">Tất cả HV đều đang hoạt động!</p>';
+  inactive.forEach(function(s){
+    html+='<div class="alert-row alert-red"><div class="avatar avatar-sm" style="background:var(--red-light);color:#501313">'+getInitials(s.Full_Name)+'</div>'
+      +'<div class="alert-text"><strong>'+esc(s.Full_Name)+'</strong> — chưa nộp bài nào</div></div>';
+  });
+
+  // Needs-help students
+  var needsHelp=appData.students.filter(function(s){return s.level==='needs-help';});
+  if(needsHelp.length>0){
+    html+='<div class="section-title" style="margin-top:16px">🔴 HV điểm thấp cần can thiệp ('+needsHelp.length+')</div>';
+    needsHelp.forEach(function(s){
+      html+='<div class="alert-row"><div class="avatar avatar-sm" style="background:'+esc(s.Avatar_Color)+';color:#fff">'+getInitials(s.Full_Name)+'</div>'
+        +'<div class="alert-text"><strong>'+esc(s.Full_Name)+'</strong> — Điểm TB: '+s.avgScore+'/5 · Yếu nhất: '+(s.weakest||'N/A')+'</div>'
+        +'<span class="alert-action" onclick="showStudentModal(\''+s.User_ID+'\')">Xem chi tiết →</span></div>';
+    });
+  }
+
+  // Low-progress groups
+  html+='<div class="section-title" style="margin-top:16px">📊 Nhóm tiến độ thấp</div>';
+  var hasLow=false;
+  appData.groups.forEach(function(g){
+    var mids=String(g.Members||'').split(',').map(function(s){return s.trim();});
+    var gs=appData.submissions.filter(function(s){return mids.indexOf(s.User_ID)!==-1;});
+    var te=mids.length*totalSess;var pct=te>0?Math.round((gs.length/te)*100):0;
+    if(pct<50){hasLow=true;
+      html+='<div class="alert-row alert-blue"><div class="alert-text"><strong>'+esc(g.Group_Name)+'</strong> — tiến độ '+pct+'%, thấp hơn trung bình.</div></div>';
+    }
+  });
+  if(!hasLow) html+='<p style="color:var(--text-muted);font-style:italic;padding:10px 0">Tất cả nhóm đang ổn!</p>';
+
+  // Journals summary for teacher
+  var jrn=appData.journals||[];
+  if(jrn.length>0){
+    html+='<div class="section-title" style="margin-top:16px">📝 Nhật ký gần đây từ HV ('+jrn.length+')</div>';
+    jrn.sort(function(a,b){return new Date(b.Created_At)-new Date(a.Created_At);});
+    jrn.slice(0,5).forEach(function(j){
+      var u=findUser(j.User_ID);
+      html+='<div class="journal-entry" style="border-left-color:var(--blue)"><div class="journal-entry-header">'
+        +'<div class="journal-session">'+esc(u.Full_Name)+' — Buổi '+j.Session_No+'</div><div class="journal-date">'+timeAgo(j.Created_At)+'</div></div>'
+        +'<div class="journal-section"><div class="journal-section-text">'+esc(j.Learned)+'</div></div>';
+      if(j.Confused) html+='<div class="journal-section"><div class="journal-section-text confused">❓ '+esc(j.Confused)+'</div></div>';
+      html+='</div>';
+    });
+  }
+  document.getElementById('tab-t-alerts').innerHTML=html;
+}
+
+// ==================== NAVIGATION ====================
+function switchTab(tabName,el){
+  var all=document.querySelectorAll('.tab-content');for(var i=0;i<all.length;i++)all[i].classList.remove('active');
+  var target=document.getElementById('tab-'+tabName);if(target){target.classList.add('active');currentTab=tabName;}
+  var navs=document.querySelectorAll('.nav-item');for(var j=0;j<navs.length;j++)navs[j].classList.remove('active');
+  if(el)el.classList.add('active');
+  
+  if(currentUser){
+    var cls=appData.myClass;
+    var info = {title: 'Esoft Buddy', sub: cls?cls.Class_Name:''};
+    
+    if(currentUser.Role==='student'){
+      var gn=appData.myGroup?appData.myGroup.Group_Name:'Nhóm';
+      var labels={
+        'dashboard':{title:cls?cls.Class_Name:'Lớp',sub:'Lộ trình '+(cls?cls.Total_Sessions:10)+' buổi'},
+        'feed':{title:gn+' — Thảo luận',sub:appData.groupMembers.length+' thành viên'},
+        'review':{title:'Peer Review',sub:countPendingReviews()+' bài chờ review'},
+        'leaderboard':{title:'Bảng xếp hạng',sub:''}, 'members':{title:'Nhóm của tôi — '+gn,sub:appData.groupMembers.length+' thành viên'},
+        'progress':{title:'Tiến độ của tôi',sub:cls?cls.Class_Name:''},
+        'journal':{title:'Nhật ký học tập',sub:'Metacognition & Reflection'}
+      };
+      info=labels[tabName]||{title:'Esoft Buddy',sub:''};
+    } else {
+      var teacherLabels={
+        't-dashboard':{title:'Dashboard Giảng viên',sub:cls?cls.Class_Name:''},
+        't-students':{title:'Chi tiết Học viên',sub:appData.students.length+' học viên'},
+        't-groups':{title:'Quản lý Nhóm',sub:appData.groups.length+' nhóm'},
+        't-alerts':{title:'Cảnh báo & Theo dõi',sub:''}
+      };
+      info=teacherLabels[tabName]||{title:'Esoft Buddy',sub:''};
+    }
+    renderTopbar(info.title, info.sub);
+  }
+}
+
+// ==================== UTILITIES ====================
+function showLoading(show,text){var o=document.getElementById('loadingOverlay');if(text)document.getElementById('loadingText').textContent=text;show?o.classList.remove('hidden'):o.classList.add('hidden');}
+function showToast(msg,type){type=type||'info';var c=document.getElementById('toastContainer');var t=document.createElement('div');t.className='toast toast-'+type;
+  var icon=type==='success'?'✅':(type==='error'?'❌':'ℹ️');t.innerHTML='<span>'+icon+'</span><span>'+esc(msg)+'</span>';c.appendChild(t);setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},4000);}
+function openModal(title,bodyHtml,footerHtml){document.getElementById('modalTitle').textContent=title;document.getElementById('modalBody').innerHTML=bodyHtml;document.getElementById('modalFooter').innerHTML=footerHtml;document.getElementById('modalBackdrop').classList.add('show');document.getElementById('modalContainer').classList.add('show');}
+function closeModal(){document.getElementById('modalBackdrop').classList.remove('show');document.getElementById('modalContainer').classList.remove('show');}
+function esc(str){if(str===null||str===undefined)return '';return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function getInitials(n){if(!n)return'??';var p=String(n).trim().split(/\s+/);return p.length===1?p[0].substring(0,2).toUpperCase():(p[0][0]+p[p.length-1][0]).toUpperCase();}
+function findUser(id){var list=appData.allUsers||appData.students||[];for(var i=0;i<list.length;i++){if(list[i].User_ID===id)return list[i];}return{Full_Name:id,Avatar_Color:'#ccc'};}
+function timeAgo(d){if(!d)return '';var diff=Math.floor((new Date()-new Date(d))/1000);if(diff<60)return'Vừa xong';if(diff<3600)return Math.floor(diff/60)+' phút trước';if(diff<86400)return Math.floor(diff/3600)+' giờ trước';if(diff<604800)return Math.floor(diff/86400)+' ngày trước';return d;}
+function buildSkillBar(label,value,max,color){var pct=max>0?Math.round((value/max)*100):0;return'<div class="skill-bar-container"><div class="skill-bar-label"><span>'+label+'</span><span>'+value+'/'+max+'</span></div><div class="skill-bar"><div class="skill-bar-fill" style="width:'+pct+'%;background:'+color+'"></div></div></div>';}
+</script>
+
+</script>
+</body>
+</html>
